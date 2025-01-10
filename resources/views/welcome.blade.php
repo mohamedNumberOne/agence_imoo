@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body>
@@ -28,7 +30,7 @@
 
 
     <!-- ***** Preloader Start ***** -->
-    <div id="js-preloader" class="js-preloader">
+    {{-- <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
             <span class="dot"></span>
             <div class="dots">
@@ -37,7 +39,7 @@
                 <span></span>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- ***** Preloader End ***** -->
 
 
@@ -478,7 +480,7 @@
     <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
     <script src="{{ asset('assets/js/counter.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-
+    @livewireScripts
 </body>
 
 </html>

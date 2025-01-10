@@ -11,6 +11,11 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
+    public function contact_page()
+    {
+        return view("contact") ;
+    }
     public function index()
     {
         //

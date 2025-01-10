@@ -40,7 +40,7 @@ https://templatemo.com/tm-591-villa-agency
     </div>
     <!-- ***** Preloader End ***** -->
 
- @include('components.user_navigation')
+ @include('components.user_navigation') 
 
     <div class="page-heading header-text">
         <div class="container">
