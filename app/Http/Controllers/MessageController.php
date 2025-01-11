@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use App\Http\Requests\StoreCompanyRequest;
-use App\Http\Requests\UpdateCompanyRequest;
+use App\Models\Message;
+use App\Http\Requests\StoreMessageRequest;
+use App\Http\Requests\UpdateMessageRequest;
 
-class CompanyController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
 
-
+     public function messages_admin_page()
+     {
+        $messages = Message::all() ;
+         return view("admin.messages" , compact("messages") );
+     }
+     
 
     public function index()
     {
@@ -30,7 +35,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(StoreMessageRequest $request)
     {
         //
     }
@@ -38,7 +43,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Company $company)
+    public function show(Message $message)
     {
         //
     }
@@ -46,7 +51,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Company $company)
+    public function edit(Message $message)
     {
         //
     }
@@ -54,7 +59,7 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(UpdateMessageRequest $request, Message $message)
     {
         //
     }
@@ -62,7 +67,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Company $company)
+    public function destroy(Message $message)
     {
         //
     }

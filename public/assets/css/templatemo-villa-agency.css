@@ -470,11 +470,11 @@ Header Style
   font-weight: 400;
   text-transform: none;
   border-radius: 20px;
-  padding-left: 0px;
+  padding-left: 20px;
 }
 
 .header-area .main-nav .nav li:last-child a i {
-  background-color: #f35525;
+  background-color: #f35525 !important ;
   display: inline-block;
   width: 40px;
   height: 40px;

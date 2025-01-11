@@ -32,7 +32,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('immobilier_admin_page', absolute: false), navigate: true);
     }
 }; ?>
 
