@@ -17,7 +17,7 @@ class RealStateController extends Controller
     public function get_info_company()
     {
         return $info_company = Company::all();  
-        // return $info_company = Company::latest()->first();; 
+  
         
     }
 
@@ -29,7 +29,7 @@ class RealStateController extends Controller
 
     public function nos_immobiliers_page()
     {
-        
+
         $info_company = $this ->  get_info_company()  ;
         return view("properties", compact('info_company'));
     }

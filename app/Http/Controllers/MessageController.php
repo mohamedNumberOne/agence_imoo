@@ -12,12 +12,12 @@ class MessageController extends Controller
      * Display a listing of the resource.
      */
 
-     public function messages_admin_page()
-     {
-        $messages = Message::all() ;
-         return view("admin.messages" , compact("messages") );
-     }
-     
+    public function messages_admin_page()
+    {
+        $messages = Message::all();
+        return view("admin.messages", compact("messages"));
+    }
+
 
     public function index()
     {
@@ -27,48 +27,27 @@ class MessageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMessageRequest $request)
+    public function add_message(StoreMessageRequest $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Message $message)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
+        Message::create([
+            "nom_client" =>   $request->name,
+            "email_client" => $request->email,
+            "tlf_client" =>  $request->tlf,
+            "sujet"     => $request->subject,
+            "txt_message"    => $request->message
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMessageRequest $request, Message $message)
-    {
-        //
-    }
+        ]);
+        
+        $msg = "Message envoyé";
+    
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Message $message)
-    {
-        //
+        return view("contact" , compact('msg') )   ;
     }
 }

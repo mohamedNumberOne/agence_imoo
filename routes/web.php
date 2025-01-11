@@ -23,6 +23,7 @@ Route::prefix("admin")->middleware(['auth', 'verified'])->group(function () {
     Route::get('/immobiliers', [RealStateController::class, 'immobilier_admin_page'])->name('immobilier_admin_page');
     Route::get('/gestion-immobiliers', [RealStateController::class, 'gestion_admin_page'])->name('gestion_admin_page');
     Route::get('/messages', [MessageController::class, 'messages_admin_page'])->name('messages_admin_page');
+    Route::post('/add_message', [MessageController::class, 'add_message'])->name('add_message');
 
 
     Route::view('profile', 'profile')->name('profile');

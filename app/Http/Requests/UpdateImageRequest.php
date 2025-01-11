@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMessageRequest extends FormRequest
+class UpdateImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return 1;
+        return false;
     }
 
     /**
@@ -22,12 +22,7 @@ class StoreMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|max:60",
-            "email" => "required|string|max:80",
-            "tlf" => "required|numeric|digits_between:1,15",
-            "subject" => "required|string",
-            "message" => "required|string|max:500",
-             
+            //
         ];
     }
 }

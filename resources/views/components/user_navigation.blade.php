@@ -1,18 +1,19 @@
-<div class="sub-header">
+<div class="sub-header ">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8">
                 <ul class="info">
-                    <li><i class="fa fa-envelope"></i>
-                        @foreach ($info_company as $info)
-                        {{ $info -> company_email }}
-                        @endforeach
+                    <li> 
+                        <span class="icone" >   <i class="fa fa-envelope"></i> </span>
+                        {{-- @foreach ($info_company as $info)
+                        {{ $info -> company_email }} 
+                        @endforeach --}}
                     </li>
                     <li>
-                        <i class="fa fa-map"></i>
-                        @foreach ($info_company as $info)
+                        <span class="icone" >  <i class="fa fa-map"></i> </span>
+                        {{-- @foreach ($info_company as $info)
                         {{ $info ->company_adresse }}
-                        @endforeach
+                        @endforeach --}}
                     </li>
                 </ul>
             </div>
@@ -49,7 +50,7 @@
                         </li>
                         {{-- <li><a href=" {{ route('property-details') }} ">Property Details</a></li> --}}
                         <li><a href="{{ route('contact_us_page') }}" wire:navigate>Contact</a></li>
-                        <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
+                        <li><a href="#"> <span class="icone"> <i class="fa fa-calendar"></i> </span> Schedule a visit</a></li>
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>

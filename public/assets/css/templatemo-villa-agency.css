@@ -170,7 +170,7 @@ body {
   transition: all .3s;
 }
 
-.icon-button a i {
+.icon-button a .icone {
   background-color: #f35525;
   height: 50px;
   width: 50px;
@@ -186,7 +186,7 @@ body {
   color: #f35525;
 }
 
-.icon-button a:hover i {
+.icon-button a:hover .icone {
   color: #fff;
 }
 
@@ -365,7 +365,7 @@ Header Style
   border-right: none;
 }
 
-.sub-header ul.info li i {
+.sub-header ul.info li .icone {
   font-size: 20px;
   color: #f35525;
   margin-right: 8px;
@@ -470,10 +470,10 @@ Header Style
   font-weight: 400;
   text-transform: none;
   border-radius: 20px;
-  padding-left: 20px;
+  /* padding-left: 20px;  */
 }
 
-.header-area .main-nav .nav li:last-child a i {
+.header-area .main-nav .nav li:last-child a .icone {
   background-color: #f35525 !important ;
   display: inline-block;
   width: 40px;
@@ -489,7 +489,7 @@ Header Style
   background-color: #1e1e1e;
 }
 
-.header-area .main-nav .nav li:last-child:hover a i {
+.header-area .main-nav .nav li:last-child:hover a .icone {
   color: #fff;
 }
 
@@ -1255,6 +1255,7 @@ Contact Style
 
 .contact-content .phone {
   margin-right: 15px;
+
 }
 
 .contact-content .email {
@@ -1265,6 +1266,8 @@ Contact Style
   float: left;
   margin-right: 25px;
   vertical-align: middle;
+ 
+   margin-top: -15px;
 }
 
 .contact-content .item h6 {
