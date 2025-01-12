@@ -51,6 +51,9 @@ new class extends Component
                         {{ __('Messages') }}
                     </x-nav-link>
                 </div>
+
+ 
+                
             </div>
 
             <!-- Settings Dropdown -->

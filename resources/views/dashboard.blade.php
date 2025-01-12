@@ -15,8 +15,7 @@
                     <div class="row">
 
                         <div class="col-md-2">
-                            <h2 class="badge bg-success">ajouter un immobilier</h2>
-                            <img src="" alt="">
+                            <h2 class="badge bg-success m-2">ajouter un immobilier <i class="fa-solid fa-house"></i></h2>
                         </div>
 
                         <div class="col-md-10 mt-4">

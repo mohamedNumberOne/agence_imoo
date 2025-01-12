@@ -59,11 +59,19 @@ class RealStateController extends Controller
 
     public function gestion_admin_page()
     {
-       
-        return view("admin.gestion_admin_page");
+        $all_real_states = RealState::all();
+        return view("admin.gestion_admin_page", compact('all_real_states') );
     }
 
+    public function update_immobilier_admin_page()
+    {
 
+        return view("admin.update_immobilier_admin_page");
+    }
+
+   
+
+    
     
     public function store(StoreRealStateRequest $request)
     {
@@ -77,28 +85,5 @@ class RealStateController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(RealState $realState)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateRealStateRequest $request, RealState $realState)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(RealState $realState)
-    {
-        //
-    }
+ 
 }
