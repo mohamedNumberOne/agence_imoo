@@ -42,12 +42,12 @@ class MessageController extends Controller
             "tlf_client" =>  $request->tlf,
             "sujet"     => $request->subject,
             "txt_message"    => $request->message
-
         ]);
         
+
         $msg = "Message envoyé";
     
 
-        return view("contact" , compact('msg') )   ;
+        return  redirect()-> back() -> with( ['msg' => $msg ])   ;
     }
 }

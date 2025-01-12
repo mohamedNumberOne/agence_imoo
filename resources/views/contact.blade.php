@@ -17,9 +17,9 @@
 
 
     <div class="contact-page section">
-        @if ($msg)
+        @if (session()->has('msg'))
             <div class="alert alert-success container text-center m-auto mb-5" role="alert">
-               {{$msg}}
+                {{ session('msg') }}
             </div>
         @endif
         <div class="container  ">
@@ -44,19 +44,27 @@
                         <div class="col-lg-12">
                             <div class="item phone">
                                 <img src="assets/images/phone-icon.png" alt="" style="max-width: 52px;">
-                                <h6>010-020-0340<br><span>Phone Number</span></h6>
+                                <h6> @foreach ($info_company as $info)
+                                        {{ $info->company_tlf1 }}
+                                    @endforeach<br><span>  Numéro de téléphone  </span></h6>
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="item email">
                                 <img src="assets/images/email-icon.png" alt="" style="max-width: 52px;">
-                                <h6>info@villa.co<br><span>Business Email</span></h6>
+                                <h6>
+                                    @foreach ($info_company as $info)
+                                        {{ $info->company_email }}
+                                    @endforeach
+                                    <br><span> Email</span>
+                                </h6>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <form id="contact-form" action="{{ route('add_message') }}" method="post">
+                    <form id="contact-form" method="post" action="{{ route('add_message') }}">
+                        @method('POST')
                         @csrf
                         <div class="row">
                             <div class="col-lg-12">
@@ -109,7 +117,8 @@
                             <div class="col-lg-12">
                                 <fieldset>
                                     <button type="submit" id="form-submit" class="orange-button">
-                                        Envoyer</button>
+                                        Envoyer
+                                    </button>
                                 </fieldset>
                             </div>
                         </div>

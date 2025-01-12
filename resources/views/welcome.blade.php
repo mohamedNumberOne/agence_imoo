@@ -373,6 +373,8 @@
                                     @foreach ($info_company as $info)
                                         {{ $info->company_tlf1 }}
                                     @endforeach
+                                     <br>
+                                    <span> Numéro de téléphone  </span>
                                 </h6>
                             </div>
                         </div>
@@ -383,44 +385,70 @@
                                     @foreach ($info_company as $info)
                                         {{ $info->company_email }}
                                     @endforeach
+                                    <br>
+                                    <span> Email      </span>
                                 </h6>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <form id="contact-form" action="" method="post">
+                   <form id="contact-form" method="post"  action="{{ route('add_message') }}"  >
+                        @method('POST')
+                        @csrf
                         <div class="row">
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <label for="name">Nom complet</label>
-                                    <input type="name" name="name" id="name"
-                                        placeholder="Votre nom complet..." autocomplete="on" required>
+                                    <label for="name">Nom & Prénom </label>
+                                    <input type="text" name="name" id="name" placeholder="Votre nom complet"
+                                        required>
                                 </fieldset>
+                                @error('name')
+                                    {{ $message }}
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
                                     <label for="email">Email </label>
                                     <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*"
-                                        placeholder="Votre E-mail..." required="">
+                                        placeholder="E-mail @" required="">
                                 </fieldset>
+                                @error('name')
+                                    {{ $message }}
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
                                     <label for="subject">Sujet</label>
-                                    <input type="text" name="sujet" id="subject" placeholder="Sujet..."
-                                        autocomplete="on">
+                                    <input type="text" name="subject" id="subject" placeholder="Sujet...">
                                 </fieldset>
+                                @error('subject')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <label for="tlf">Téléphone</label>
+                                    <input type="number" name="tlf" id="tlf" placeholder="Téléphone...">
+                                </fieldset>
+                                @error('tlf')
+                                    {{ $message }}
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
                                     <label for="message">Message</label>
                                     <textarea name="message" id="message" placeholder="Votre Message"></textarea>
                                 </fieldset>
+                                @error('message')
+                                    {{ $message }}
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <button type="submit" id="form-submit" class="orange-button">Envoyer</button>
+                                    <button type="submit" id="form-submit" class="orange-button">
+                                        Envoyer
+                                    </button>
                                 </fieldset>
                             </div>
                         </div>
