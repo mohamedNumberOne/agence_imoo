@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PhpParser\Node\NullableType;
 
 return new class extends Migration
 {
@@ -16,16 +17,18 @@ return new class extends Migration
             $table->string("titre_bien")-> nullable() ;
             $table->string("photo_principale");
             $table->string("etage");
-            $table->enum(  'statut' , [ "disponible", 'réservé' , "loué" , "vendu" ]);
-            
-            $table->text("adresse");
+            $table->enum(  'statut' , [ "disponible", 'réservé' , "loué" , "vendu" ])  -> default("disponible") ;
 
-            $table->unsignedBigInteger("type_bien_id");
+            $table->text("adresse");
+            $table->string("Superficie");
+
+            $table->unsignedBigInteger("real_state_type_id") -> nullable() ;
             $table->tinyInteger("wilaya_id")-> nullable() ;
-            $table->tinyInteger("daira_id")->nullable();
+            $table->smallInteger("daira_id")->nullable();
 
             $table->foreign('wilaya_id')->references('id')->on('wilayas')->onDelete('set null');
             $table->foreign('daira_id')->references('id')->on('dairas')->onDelete('set null');
+            $table->foreign('real_state_type_id')->references('id')->on('real_state_types')->onDelete('set null');
 
             $table->timestamps();
         });

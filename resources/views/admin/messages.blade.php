@@ -15,7 +15,6 @@
                     @if (count($messages) > 0)
 
 
-
                         <div class="row">
                            
                                 <div class="col-md-1">
@@ -88,7 +87,7 @@
                         </div>
                     @else
                         <div class="alert text-center container alert-warning" role="alert">
-                            Pas de Message !
+                            Pas de Messages !
                         </div>
                     @endif
 

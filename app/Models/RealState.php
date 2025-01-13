@@ -9,4 +9,16 @@ class RealState extends Model
 {
     /** @use HasFactory<\Database\Factories\RealStateFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        "titre_bien",
+        "photo_principale",
+        "etage",
+        "statut",
+        "adresse",
+        "real_state_type_id",
+        "wilaya_id",
+        "daira_id",
+        "Superficie"
+    ];
 }

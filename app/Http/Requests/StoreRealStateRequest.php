@@ -11,7 +11,7 @@ class StoreRealStateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return 1;
     }
 
     /**
@@ -22,7 +22,17 @@ class StoreRealStateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'titre_produit' => "required|" ,
+            'type_immo' => "required|exists:real_state_types,id"   ,
+            'transaction' => "required|" ,
+            'wilaya' => "required|exists:wilayas,id" ,
+            'daira' => "required|exists:dairas,id" ,
+            // 'photo_principale' => "required|" ,
+            // 'album_photo' => "required|" ,
+            'superficie' => "required|" ,
+            'prix' => "required|" ,
+            'adresse' => "required|" ,
+            'etage' => "required|" ,
         ];
     }
 }
