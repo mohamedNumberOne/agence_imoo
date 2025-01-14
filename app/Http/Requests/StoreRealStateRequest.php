@@ -27,12 +27,13 @@ class StoreRealStateRequest extends FormRequest
             'transaction' => "required|" ,
             'wilaya' => "required|exists:wilayas,id" ,
             'daira' => "required|exists:dairas,id" ,
-            // 'photo_principale' => "required|" ,
+            'photo_principale' => "required|image" ,
             // 'album_photo' => "required|" ,
             'superficie' => "required|" ,
-            'prix' => "required|" ,
+            // 'prix' => "" ,
             'adresse' => "required|" ,
-            'etage' => "required|" ,
+            'nb_pieces' => "numeric|min:1|max:29" ,
+            // 'etage' => "required|" , 
         ];
     }
 }

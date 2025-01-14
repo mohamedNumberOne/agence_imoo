@@ -14,16 +14,20 @@ return new class extends Migration
     {
         Schema::create('real_states', function (Blueprint $table) {
             $table->id();
-            $table->string("titre_bien")-> nullable() ;
+            $table->string("titre_bien")->nullable();
             $table->string("photo_principale");
             $table->string("etage");
-            $table->enum(  'statut' , [ "disponible", 'réservé' , "loué" , "vendu" ])  -> default("disponible") ;
+            $table->enum('statut', ["disponible", 'réservé', "loué", "vendu"])->default("disponible");
 
             $table->text("adresse");
             $table->string("Superficie");
+            $table->string("prix");
+            $table->enum('transaction', ["vente", 'location', "partenariat", "autre"])->default("vente");
+            $table->tinyInteger("nb_pieces") -> nullable() ;
 
-            $table->unsignedBigInteger("real_state_type_id") -> nullable() ;
-            $table->tinyInteger("wilaya_id")-> nullable() ;
+
+            $table->unsignedBigInteger("real_state_type_id")->nullable();
+            $table->tinyInteger("wilaya_id")->nullable();
             $table->smallInteger("daira_id")->nullable();
 
             $table->foreign('wilaya_id')->references('id')->on('wilayas')->onDelete('set null');

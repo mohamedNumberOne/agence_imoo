@@ -19,6 +19,11 @@ class RealState extends Model
         "real_state_type_id",
         "wilaya_id",
         "daira_id",
-        "Superficie"
+        "prix",
+        "Superficie",
+        "transaction",
+        "nb_pieces",
+
+        
     ];
 }

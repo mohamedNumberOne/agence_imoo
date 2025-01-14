@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("real_state_id");
+            $table->string("path_img");
+
+            $table -> foreign("real_state_id") ->  references("id") ->  on("real_states") -> onDelete("cascade") ;
+
             $table->timestamps();
         });
     }

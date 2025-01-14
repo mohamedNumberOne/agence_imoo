@@ -27,9 +27,24 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreImageRequest $request)
+    // StoreImageRequest $request ,
+
+    public function store(  $files,  $immo)
     {
-        //
+        
+        if (is_array($files)) {
+            
+            // Vérifie si chaque fichier est valide
+            foreach ($files as $file) {
+                if ($file->isValid()) {
+                    // Exemple de sauvegarde (à adapter selon votre logique)
+                    Image::create([
+                        "real_state_id" =>  $immo->id,
+                        "path_img" => $file->store('produits', 'public') // Enregistre le fichier
+                    ]);
+                }
+            }
+        }
     }
 
     /**
