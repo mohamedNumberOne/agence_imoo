@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreImageRequest;
 use App\Models\RealState;
 use App\Models\Company;
 use App\Http\Requests\StoreRealStateRequest;
@@ -9,13 +10,13 @@ use App\Http\Requests\UpdateRealStateRequest;
 use App\Models\RealStateType;
 // use App\Models\Wilaya;
 // use App\Models\Daira;
-
+ 
 use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
 use TheHocineSaad\LaravelAlgereography\Models\Daira;
+// use App\Http\Controllers\ImageController; 
 
 
-
-class RealStateController extends Controller
+class RealStateController extends ImageController
 {
     /**
      * Display a listing of the resource.
@@ -69,41 +70,67 @@ class RealStateController extends Controller
 
 
 
-
-
-
-
-
-
     public function add_immobilier(StoreRealStateRequest $request)
     {
-        RealState::create([
-            
+
+
+
+        if ($request->hasFile('photo_principale')  &&  $request->file('photo_principale')->isValid()) {
+
+            $file = $request->file('photo_principale');
+            $path_photo_principale = $file->store('produits', 'public');
+        } else {
+            $path_photo_principale  = NULL;
+        }
+
+
+
+
+        // return dd($path_photo_principale) ; 
+      $immo =   RealState::create([
+
             // id	titre_bien	photo_principale	etage	/ statut	adresse	    Superficie 	 real_state_type_id	 wilaya_id	daira_id	 
 
             "titre_bien" => $request->titre_produit,
             "real_state_type_id" => $request->type_immo,
-            "etage" => $request->etage, 
+            "etage" => $request->etage,
             "wilaya_id" => $request->wilaya,
             "daira_id" => $request->daira,
-            "statut" =>  'disponible' ,
+            "statut" =>  'disponible',
             "adresse" => $request->adresse,
-            "photo_principale" =>  "testimg" ,
+            "photo_principale" =>  $path_photo_principale,
+            "prix" =>   $request->prix,
             // "" =>  $request->album_photo,  $request->photo_principale 
             "Superficie" => $request->superficie,
-          
-           
+            "nb_pieces" => $request->nb_pieces,
+            "transaction" => $request->transaction,
 
         ]);
 
-        return redirect() -> back() ;
+
+        // ImageController
+        if ( $immo  ) {
+           
+            if ($request->hasFile('album_photo')    &&  ! empty($request->file('album_photo'))) {
+                $files = $request->file('album_photo');
+                
+                $this -> store(  $files , $immo ) ;
+ 
+            }
+        } 
+     
+
+        return redirect()->back()->with("success", "Produit ajouté!");
     }
 
 
 
     public function gestion_admin_page()
     {
-        $all_real_states = RealState::all();
+        // $all_real_states = RealState::all(); 
+        $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
+            ->get();;
+
 
 
         return view("admin.gestion_admin_page", compact('all_real_states'));
@@ -119,18 +146,5 @@ class RealStateController extends Controller
 
 
 
-
-
-    public function store(StoreRealStateRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(RealState $realState)
-    {
-        //
-    }
+ 
 }

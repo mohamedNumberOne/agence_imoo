@@ -13,7 +13,9 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="row">
-
+                        @if ( session() -> has('success') )
+                            <div class="alert alert-success text-center"> {{ session("success") }} </div>
+                        @endif
                         <div class="col-md-2">
                             <h2 class="badge bg-success m-2">Ajouter un immobilier <i class="fa-solid fa-house"></i>
                             </h2>
@@ -21,12 +23,12 @@
 
                         <div class="col-md-10 mt-4">
                             {{-- from --}}
-                            <form class="row g-3" method="post" action="{{  route('add_immobilier')  }}">
+                            <form class="row g-3" method="post" action="{{  route('add_immobilier')  }}"  enctype="multipart/form-data" >
                                 @csrf
 
                                 <div class="col-md-4">
                                     <label for="inputEmail4" class="form-label">Titre Produit</label>
-                                    <input type="text" class="form-control" id="inputEmail4" name="titre_produit">
+                                    <input type="text" class="form-control" id="inputEmail4" name="titre_produit"  value="{{ old('titre_produit')   }}" >
                                     @error("titre_produit")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
@@ -34,7 +36,7 @@
 
                                 <div class="col-md-4">
                                     <label for="Type" class="form-label"> Type immobilier </label>
-                                    <select id="Type" class="form-select" name="type_immo">
+                                    <select id="Type" class="form-select" name="type_immo"   >
 
                                         <option> </option>
 
@@ -54,6 +56,7 @@
                                         <option> </option>
                                         <option value="vente"> vente </option>
                                         <option value="location"> location </option>
+                                        <option value="partenariat"> partenariat </option>
                                         <option value="autre"> autre </option>
                                     </select>
                                     @error("transaction")
@@ -92,7 +95,8 @@
 
                                 <div class="col-md-4">
                                     <label for="inputAddress" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Address..." name="adresse">
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="Address..." value="{{ old('adresse')  }}" 
+                                        name="adresse">
                                     @error("adresse")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
@@ -102,7 +106,7 @@
 
                                 <div class="col-md-5">
                                     <label for="Principale" class="form-label">Photo Principale</label>
-                                    <input type="file" class="form-control" id="Principale" name="photo_principale">
+                                    <input type="file" class="form-control" id="Principale" name="photo_principale" accept="image/*" >
                                     @error("photo_principale")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
@@ -110,7 +114,7 @@
 
                                 <div class="col-md-7">
                                     <label for="Album" class="form-label">Album photos</label>
-                                    <input type="file" class="form-control" id="Album" multiple name="album_photo">
+                                    <input type="file" class="form-control" id="Album" multiple name="album_photo[]"  accept="image/*" >
                                     @error("album_photo")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
@@ -118,25 +122,33 @@
 
                                 <hr>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="Superficie" class="form-label"> Superficie </label>
-                                    <input type="text" class="form-control" id="Superficie" name="superficie">
+                                    <input type="text" class="form-control" id="Superficie" name="superficie" value="{{ old('superficie')  }}" >
                                     @error("superficie")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label for="prix" class="form-label"> Prix (Da) </label>
-                                    <input type="number" class="form-control" id="prix" name="prix">
+                                <div class="col-md-3">
+                                    <label for="prix" class="form-label"> Prix   </label>
+                                    <input type="text" class="form-control" id="prix" name="prix" value="{{ old('prix')  }}"  >
                                     @error("prix")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
                                 </div>
+                                <div class="col-md-3">
+                                    <label for="nb_pieces" class="form-label"> Nombre de piéces   </label>
+                                    <input type="number" class="form-control" id="nb_pieces" name="nb_pieces"  value="{{ old('nb_pieces')  }}"  >
+                                    @error("nb_pieces")
+                                    <span class="text-danger text-center"> {{ $message }} </span>
+                                    @enderror
+                                </div>
 
-                                <div class="col-md-4">
+
+                                <div class="col-md-3">
                                     <label for="etage" class="form-label"> étage </label>
-                                    <input type="number" class="form-control" id="etage" name="etage" min="0" max="40" >
+                                    <input type="number" class="form-control" id="etage" name="etage" min="0" max="40"   value="{{ old('etage')  }}"  >
                                     @error("etage")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror

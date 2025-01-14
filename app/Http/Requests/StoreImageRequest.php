@@ -11,7 +11,7 @@ class StoreImageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return 1;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "album_photo" => "image"
         ];
     }
 }
