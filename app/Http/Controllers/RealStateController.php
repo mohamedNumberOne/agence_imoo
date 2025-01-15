@@ -7,6 +7,7 @@ use App\Models\RealState;
 use App\Models\Company;
 use App\Http\Requests\StoreRealStateRequest;
 use App\Http\Requests\UpdateRealStateRequest;
+use App\Models\Image;
 use App\Models\RealStateType;
 // use App\Models\Wilaya;
 // use App\Models\Daira;
@@ -60,14 +61,19 @@ class RealStateController extends ImageController
     public function immobilier_admin_page()
     {
         $RealStateType =  RealStateType::all();
-
         $all_wilayas = Wilaya::all();
-        $all_dairas = Daira::orderBy('name')->get();
 
-        return view("dashboard", compact('RealStateType', "all_wilayas", "all_dairas"));
+        return view("dashboard", compact('RealStateType', "all_wilayas"));
     }
 
 
+    public function get_daira_par_id_wilaya($id_wilaya)
+    {
+
+        $all_dairas = Daira::where("wilaya_id",   $id_wilaya)->get();
+
+        return response()->json($all_dairas);
+    }
 
 
     public function add_immobilier(StoreRealStateRequest $request)
@@ -207,7 +213,16 @@ class RealStateController extends ImageController
 
         file_exists('storage/' . $immo->photo_principale) ? unlink('storage/' .  $immo->photo_principale) : "";
 
+
+
+        $imgs =  Image::where('real_state_id', $id)->get();
+
+        foreach ($imgs as $img) {
+            file_exists('storage/' . $img->path_img) ? unlink('storage/' .  $img->path_img) : "";
+        }
+
         $immo->delete();
+
 
         return redirect()->back()->with('success',  "produit supprimé");
     }
