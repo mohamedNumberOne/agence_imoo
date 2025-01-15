@@ -25,6 +25,8 @@ Route::prefix("admin")->middleware(['auth', 'verified'])->group(function () {
     Route::get('/gestion-immobiliers', [RealStateController::class, 'gestion_admin_page'])->name('gestion_admin_page');
     Route::get('/modifier-immobilier/{id}', [RealStateController::class, 'update_immobilier_admin_page'])->name('update_immobilier_admin_page');
 
+    Route::post('/update-immobilier/{id}', [RealStateController::class, 'modifier_immobilier'])->name('modifier_immobilier');
+
     Route::get('/messages', [MessageController::class, 'messages_admin_page'])->name('messages_admin_page');
     Route::post('/add_message', [MessageController::class, 'add_message'])->name('add_message');
     Route::delete('/delete_msg/{id}', [MessageController::class, 'delete_msg'])->name('delete_msg');

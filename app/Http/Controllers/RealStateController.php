@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateRealStateRequest;
 use App\Models\RealStateType;
 // use App\Models\Wilaya;
 // use App\Models\Daira;
- 
+
 use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
 use TheHocineSaad\LaravelAlgereography\Models\Daira;
 // use App\Http\Controllers\ImageController; 
@@ -87,7 +87,7 @@ class RealStateController extends ImageController
 
 
         // return dd($path_photo_principale) ; 
-      $immo =   RealState::create([
+        $immo =   RealState::create([
 
             // id	titre_bien	photo_principale	etage	/ statut	adresse	    Superficie 	 real_state_type_id	 wilaya_id	daira_id	 
 
@@ -109,42 +109,59 @@ class RealStateController extends ImageController
 
 
         // ImageController
-        if ( $immo  ) {
-           
+        if ($immo) {
+
             if ($request->hasFile('album_photo')    &&  ! empty($request->file('album_photo'))) {
                 $files = $request->file('album_photo');
-                
-                $this -> store(  $files , $immo ) ;
- 
+
+                $this->store($files, $immo);
             }
-        } 
-     
+        }
+
 
         return redirect()->back()->with("success", "Produit ajouté!");
     }
 
 
+    public function modifier_immobilier(StoreRealStateRequest $request)
+    {
+        $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
+            ->get();
+
+        return view("admin.update_immobilier_admin_page", compact('all_real_states'));
+    }
 
     public function gestion_admin_page()
     {
-        // $all_real_states = RealState::all(); 
-        $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
-            ->get();;
 
-
+        $all_real_states = RealState::join ("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
+        ->select('real_states.*', 'real_state_types.id as id_type_rs' , 'nom_type as nom_type')
+        ->get();
 
         return view("admin.gestion_admin_page", compact('all_real_states'));
     }
 
 
 
-    public function update_immobilier_admin_page()
+    public function update_immobilier_admin_page($id)
     {
 
-        return view("admin.update_immobilier_admin_page");
+        $immobilier =  RealState::join('real_state_types'  ,  'real_state_types.id' , '=' , "real_states.real_state_type_id"  )
+        ->select('real_states.*', 'real_state_types.id as id_type_rs', 'nom_type as nom_type')
+        ->where('real_states.id', $id)
+        ->first();
+        
+        ;
+        if (
+            $immobilier
+        ) {
+            $all_wilayas = Wilaya::all();
+            $all_dairas = Daira::orderBy('name')->get();
+            $RealStateType =  RealStateType::all();
+            return view("admin.update_immobilier_admin_page", compact('immobilier', 'RealStateType', 'all_wilayas', "all_dairas"));
+        }
+
+        return redirect()-> back() ;
+       
     }
-
-
-
- 
 }
