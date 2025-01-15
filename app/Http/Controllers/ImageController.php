@@ -29,7 +29,7 @@ class ImageController extends Controller
      */
     // StoreImageRequest $request ,
 
-    public function store(  $files,  $immo)
+    public function store(  $files,  $immo )
     {
         
         if (is_array($files)) {
@@ -50,9 +50,9 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Image $image)
+    public function show_all_img( $id )
     {
-        //
+        return  $all_imgs = Image::where("real_state_id", $id)->get();
     }
 
     /**

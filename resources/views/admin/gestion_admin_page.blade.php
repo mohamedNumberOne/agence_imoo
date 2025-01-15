@@ -5,13 +5,14 @@
         </h2>
     </x-slot>
 
-
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
+                    @if ( session() -> has('success') )
+                    <div class="alert alert-success text-center"> {{ session("success") }} </div>
+                    @endif
                     <div class="row">
 
                         @if (count($all_real_states) > 0)
@@ -28,7 +29,7 @@
 
                                     <td> Immobilier </td>
                                     <td> Prix </td>
-                                    <td> Type   </td>
+                                    <td> Type </td>
                                     <td> Adresse </td>
                                     <td> Photo </td>
                                     <td> Statut </td>
@@ -39,7 +40,7 @@
 
                                     <td> {{ $rs-> titre_bien }} </td>
                                     <td> {{ $rs-> prix }} DA </td>
-                                    <td> {{ $rs->  nom_type }} </td>
+                                    <td> {{ $rs-> nom_type }} </td>
                                     <td> {{ $rs-> adresse }} </td>
                                     <td> <img src="{{  asset( 'storage/' . $rs->photo_principale) }}" alt="image"
                                             width="70px"> </td>
@@ -70,34 +71,59 @@
                                     </td>
                                     <td>
 
-                                        <!-- Button trigger modal -->
-                                        {{-- <button type="button" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
-                                            <span class="badge bg-danger m-2">
-                                            </span>
-                                        </button> --}}
+                                        {{-- <form action="{{ route('delete_immobilier' ,   $rs->  id ) }}"
+                                            class="d-inline-block" method="post">
+                                            @csrf
+                                            @method("DELETE")
+                                            <button class="btn btn-danger btn-delete">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form> --}}
 
-                                        {{--
+
+
+
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#{{ $rs ->id }}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        <div class="modal fade" id="{{ $rs ->id }}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <div class="modal-body">
-                                                        Confirmer la Suppression
+                                                    <div class="modal-header">
 
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Suppression
                                                     </div>
                                                     <div class="modal-footer">
+                                                     
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Fermer</button>
 
+                                                        <form action="{{ route('delete_immobilier' ,   $rs->  id ) }}"
+                                                            class="d-inline-block" method="post">
+                                                            @csrf
+                                                            @method("DELETE")
+                                                            <button class="btn btn-danger btn-delete" type="submit">
+                                                                supprimer
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> --}}
-                                        <button type="button" class="btn btn-danger">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                        </div>
+
+
+
+
+
                                         <a href="{{ route('update_immobilier_admin_page',  $rs-> id ) }}">
                                             <span class="btn btn-primary m-2">
                                                 <i class="fa-solid fa-file-pen"></i>
@@ -109,7 +135,7 @@
 
 
                             </table>
-
+                            {{ $all_real_states->links() }}
 
                             @else
                             <div class="alert text-center container alert-warning" role="alert">
@@ -120,12 +146,11 @@
                         </div>
 
 
-
-
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>

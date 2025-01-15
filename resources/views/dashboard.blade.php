@@ -104,17 +104,19 @@
 
                                 <hr>
 
-                                <div class="col-md-5">
+                                <div class="col-md-6  rounded border">
                                     <label for="Principale" class="form-label">Photo Principale</label>
-                                    <input type="file" class="form-control" id="Principale" name="photo_principale" accept="image/*" >
+                                    <input type="file" class="form-control" id="Principale" name="photo_principale" accept="image/*" required >
                                     @error("photo_principale")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-7">
+                                <div class="col-md-6  rounded border ">
                                     <label for="Album" class="form-label">Album photos</label>
-                                    <input type="file" class="form-control" id="Album" multiple name="album_photo[]"  accept="image/*" >
+                                    <input type="file" class="form-control" id="Album" multiple name="album_photo[]"  accept="image/*" 
+                                    
+                                    >
                                     @error("album_photo")
                                     <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror

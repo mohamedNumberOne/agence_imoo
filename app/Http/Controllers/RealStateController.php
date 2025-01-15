@@ -73,8 +73,6 @@ class RealStateController extends ImageController
     public function add_immobilier(StoreRealStateRequest $request)
     {
 
-
-
         if ($request->hasFile('photo_principale')  &&  $request->file('photo_principale')->isValid()) {
 
             $file = $request->file('photo_principale');
@@ -84,12 +82,8 @@ class RealStateController extends ImageController
         }
 
 
-
-
-        // return dd($path_photo_principale) ; 
         $immo =   RealState::create([
 
-            // id	titre_bien	photo_principale	etage	/ statut	adresse	    Superficie 	 real_state_type_id	 wilaya_id	daira_id	 
 
             "titre_bien" => $request->titre_produit,
             "real_state_type_id" => $request->type_immo,
@@ -100,7 +94,6 @@ class RealStateController extends ImageController
             "adresse" => $request->adresse,
             "photo_principale" =>  $path_photo_principale,
             "prix" =>   $request->prix,
-            // "" =>  $request->album_photo,  $request->photo_principale 
             "Superficie" => $request->superficie,
             "nb_pieces" => $request->nb_pieces,
             "transaction" => $request->transaction,
@@ -123,20 +116,19 @@ class RealStateController extends ImageController
     }
 
 
-    public function modifier_immobilier(StoreRealStateRequest $request)
-    {
-        $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
-            ->get();
+    // public function modifier_immobilier(StoreRealStateRequest $request)
+    // {
+    //     $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id") ->get();
 
-        return view("admin.update_immobilier_admin_page", compact('all_real_states'));
-    }
+    //     return view("admin.update_immobilier_admin_page", compact('all_real_states'));
+    // }
 
     public function gestion_admin_page()
     {
 
-        $all_real_states = RealState::join ("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
-        ->select('real_states.*', 'real_state_types.id as id_type_rs' , 'nom_type as nom_type')
-        ->get();
+        $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
+            ->select("real_states.*", "real_state_types.nom_type as nom_type") // Facultatif : sélectionnez les colonnes nécessaires
+            ->paginate(8);
 
         return view("admin.gestion_admin_page", compact('all_real_states'));
     }
@@ -146,22 +138,77 @@ class RealStateController extends ImageController
     public function update_immobilier_admin_page($id)
     {
 
-        $immobilier =  RealState::join('real_state_types'  ,  'real_state_types.id' , '=' , "real_states.real_state_type_id"  )
-        ->select('real_states.*', 'real_state_types.id as id_type_rs', 'nom_type as nom_type')
-        ->where('real_states.id', $id)
-        ->first();
-        
-        ;
+        $immobilier =  RealState::join('real_state_types',  'real_state_types.id', '=', "real_states.real_state_type_id")
+            ->select('real_states.*', 'real_state_types.id as id_type_rs', 'nom_type as nom_type')
+            ->where('real_states.id', $id)
+            ->first();;
         if (
             $immobilier
         ) {
+            $all_img = $this->show_all_img($id);
             $all_wilayas = Wilaya::all();
             $all_dairas = Daira::orderBy('name')->get();
             $RealStateType =  RealStateType::all();
-            return view("admin.update_immobilier_admin_page", compact('immobilier', 'RealStateType', 'all_wilayas', "all_dairas"));
+            return view("admin.update_immobilier_admin_page", compact('immobilier', 'RealStateType', 'all_wilayas', "all_dairas", "all_img"));
         }
 
-        return redirect()-> back() ;
-       
+        return redirect()->back()->with('erreur',  "produit introuvable");
+    }
+
+
+    public function modifier_immobilier(UpdateRealStateRequest  $request,  $id)
+    {
+        $immo =   RealState::find($id);
+
+
+        if ($request->hasFile('photo_principale')  &&  $request->file('photo_principale')->isValid()) {
+
+            $file = $request->file('photo_principale');
+            $path_photo_principale = $file->store('produits', 'public');
+        } else {
+            $path_photo_principale  = $immo->photo_principale;
+        }
+
+
+        if ($immo) {
+
+            $immo->update([
+                "titre_bien" => $request->titre_produit,
+                "real_state_type_id" => $request->type_immo,
+                "etage" => $request->etage,
+                "wilaya_id" => $request->wilaya,
+                "daira_id" => $request->daira,
+                "statut" =>  'disponible',
+                "adresse" => $request->adresse,
+                "photo_principale" =>  $path_photo_principale,
+                "prix" =>   $request->prix,
+                "Superficie" => $request->superficie,
+                "nb_pieces" => $request->nb_pieces,
+                "transaction" => $request->transaction,
+            ]);
+
+
+            // ImageController
+
+            if ($request->hasFile('album_photo')    &&  ! empty($request->file('album_photo'))) {
+                $files = $request->file('album_photo');
+
+                $this->store($files, $immo);
+            }
+        }
+
+        return redirect()->back()->with('success', "produit modifié");
+    }
+
+
+    public function  delete_immobilier($id)
+    {
+        $immo =   RealState::find($id);
+
+        file_exists('storage/' . $immo->photo_principale) ? unlink('storage/' .  $immo->photo_principale) : "";
+
+        $immo->delete();
+
+        return redirect()->back()->with('success',  "produit supprimé");
     }
 }

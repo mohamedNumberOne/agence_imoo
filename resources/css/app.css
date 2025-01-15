@@ -5,5 +5,9 @@
 /* @import "@fortawesome/fontawesome-free/css/all.min.css";  */
 
 nav a {
-    text-decoration: none;
+    text-decoration: none ;
+}
+table td {
+    padding: 2px !important;
+ 
 }
