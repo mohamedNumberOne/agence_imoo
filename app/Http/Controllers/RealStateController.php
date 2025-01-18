@@ -11,9 +11,12 @@ use App\Models\Image;
 use App\Models\RealStateType;
 // use App\Models\Wilaya;
 // use App\Models\Daira;
-
+use App\Http\Requests\StoreCompanyRequest ;
 use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
 use TheHocineSaad\LaravelAlgereography\Models\Daira;
+
+use function Laravel\Prompts\select;
+
 // use App\Http\Controllers\ImageController; 
 
 
@@ -39,7 +42,12 @@ class RealStateController extends ImageController
     {
 
         $info_company = $this->get_info_company();
-        return view("properties", compact('info_company'));
+        $all_immo = RealState::join("real_state_types", "real_states.real_state_type_id",  '=', 'real_state_types.id')
+            ->join('wilayas', "wilayas.id", '=', "real_states.wilaya_id")
+            ->select("real_states.*", 'real_state_types.*', 'real_state_types.id as test_id', 'real_states.id as rs_id',  'wilayas.name as wilaya_name')
+            ->get();
+        // return  dd($all_immo) ;
+        return view("properties", compact('info_company', "all_immo"));
     }
 
 
@@ -52,12 +60,73 @@ class RealStateController extends ImageController
         return view("welcome", compact('info_company'));
     }
 
+
+
+    public function  details_immo($id)
+    {
+        $immo = RealState::join('real_state_types', 'real_states.real_state_type_id', '=', 'real_state_types.id')
+            ->join('wilayas', "wilayas.id", '=', "real_states.wilaya_id")
+            ->where('real_states.id', $id) // Filtrer par l'ID du bien immobilier
+            ->select('real_states.*', 'real_state_types.nom_type as nom_type', 'wilayas.name as wilaya_name' )
+            ->first();
+
+        $info_company = $this->get_info_company();
+
+        if ($immo) {
+
+            return view("property-details", compact('immo', "info_company"));
+        } else {
+            return redirect()->back();
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      */
 
     // ADMIN :
 
+
+    
+
+    public function info_company()
+    {
+        $info_company =  Company::first() ;
+       
+
+        return view("admin.info", compact("info_company"));
+    }
+
+    public function update_company(StoreCompanyRequest $r ,  $id )
+    {
+        $company =  Company::find($id);
+
+        if( $company ) {
+
+ 
+            $company-> update([
+
+                "company_name" => $r->company_name,
+                "company_tlf1" => $r->company_tlf1,
+                "company_tlf2" => $r->company_tlf2,
+                "company_email" => $r->company_email,
+                "company_adresse" => $r->company_adresse,
+                "fb_link" => $r->fb_link,
+                "insta_link" => $r->insta_link,
+                "tiktok_link" => $r->tiktok_link,
+                // "tiktok_link" => $r->tiktok_link, 
+
+            ]) ;
+            return  redirect()->back()->with('success', 'informations modifiées');
+
+        }
+
+        return  redirect()->back() ; 
+
+    }
+
+
+    
     public function immobilier_admin_page()
     {
         $RealStateType =  RealStateType::all();
@@ -69,9 +138,7 @@ class RealStateController extends ImageController
 
     public function get_daira_par_id_wilaya($id_wilaya)
     {
-
         $all_dairas = Daira::where("wilaya_id",   $id_wilaya)->get();
-
         return response()->json($all_dairas);
     }
 
@@ -90,7 +157,6 @@ class RealStateController extends ImageController
 
         $immo =   RealState::create([
 
-
             "titre_bien" => $request->titre_produit,
             "real_state_type_id" => $request->type_immo,
             "etage" => $request->etage,
@@ -103,6 +169,7 @@ class RealStateController extends ImageController
             "Superficie" => $request->superficie,
             "nb_pieces" => $request->nb_pieces,
             "transaction" => $request->transaction,
+            "description" => $request->description,
 
         ]);
 
@@ -122,12 +189,6 @@ class RealStateController extends ImageController
     }
 
 
-    // public function modifier_immobilier(StoreRealStateRequest $request)
-    // {
-    //     $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id") ->get();
-
-    //     return view("admin.update_immobilier_admin_page", compact('all_real_states'));
-    // }
 
     public function gestion_admin_page()
     {
@@ -191,6 +252,9 @@ class RealStateController extends ImageController
                 "Superficie" => $request->superficie,
                 "nb_pieces" => $request->nb_pieces,
                 "transaction" => $request->transaction,
+                "description" => $request->description,
+                "statut" => $request->statut,
+
             ]);
 
 
@@ -211,19 +275,21 @@ class RealStateController extends ImageController
     {
         $immo =   RealState::find($id);
 
-        file_exists('storage/' . $immo->photo_principale) ? unlink('storage/' .  $immo->photo_principale) : "";
+        if ($immo) {
+            file_exists('storage/' . $immo->photo_principale) ? unlink('storage/' .  $immo->photo_principale) : "";
 
 
 
-        $imgs =  Image::where('real_state_id', $id)->get();
+            $imgs =  Image::where('real_state_id', $id)->get();
 
-        foreach ($imgs as $img) {
-            file_exists('storage/' . $img->path_img) ? unlink('storage/' .  $img->path_img) : "";
+            foreach ($imgs as $img) {
+                file_exists('storage/' . $img->path_img) ? unlink('storage/' .  $img->path_img) : "";
+            }
+
+            $immo->delete();
+            return redirect()->back()->with('success',  "produit supprimé");
+        } else {
+            return redirect()->back();
         }
-
-        $immo->delete();
-
-
-        return redirect()->back()->with('success',  "produit supprimé");
     }
 }

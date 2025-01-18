@@ -23,7 +23,9 @@ class RealState extends Model
         "Superficie",
         "transaction",
         "nb_pieces",
+        "description",
 
+    
         
     ];
 }

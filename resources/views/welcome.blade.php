@@ -143,7 +143,8 @@
                                                 Portfolio, TemplateMo One Page Layouts, etc.
                                             </p>
                                             <div class="icon-button">
-                                                <a href="{{route('contact_us_page') }}"> <span class="icone" > <i class="fa fa-calendar"></i>  </span>
+                                                <a href="{{ route('contact_us_page') }}"> <span class="icone"> <i
+                                                            class="fa fa-calendar"></i> </span>
                                                     Schedule a visit</a>
                                             </div>
                                         </div>
@@ -204,7 +205,7 @@
                                                 mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella
                                                 venmo after messenger poutine next level humblebrag swag franzen.</p>
                                             <div class="icon-button">
-                                                <a href="property-details.html">   <i class="fa fa-calendar"></i>
+                                                <a href="property-details.html"> <i class="fa fa-calendar"></i>
                                                     Schedule a visit</a>
                                             </div>
                                         </div>
@@ -368,13 +369,14 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="item phone">
-                                <img src="assets/images/phone-icon.png" alt="" style="max-width: 52px;" class="mb-5" >
+                                <img src="assets/images/phone-icon.png" alt="" style="max-width: 52px;"
+                                    class="mb-5">
                                 <h6>
                                     @foreach ($info_company as $info)
                                         {{ $info->company_tlf1 }}
                                     @endforeach
-                                     <br>
-                                    <span> Numéro de téléphone  </span>
+                                    <br>
+                                    <span> Numéro de téléphone </span>
                                 </h6>
                             </div>
                         </div>
@@ -386,14 +388,14 @@
                                         {{ $info->company_email }}
                                     @endforeach
                                     <br>
-                                    <span> Email      </span>
+                                    <span> Email </span>
                                 </h6>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
-                   <form id="contact-form" method="post"  action="{{ route('add_message') }}"  >
+                    <form id="contact-form" method="post" action="{{ route('add_message') }}">
                         @method('POST')
                         @csrf
                         <div class="row">
@@ -404,7 +406,7 @@
                                         required>
                                 </fieldset>
                                 @error('name')
-                                    {{ $message }}
+                                    <span class="text-danger"> {{ $message }} </span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -414,7 +416,7 @@
                                         placeholder="E-mail @" required="">
                                 </fieldset>
                                 @error('name')
-                                    {{ $message }}
+                                    <span class="text-danger"> {{ $message }} </span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -423,7 +425,7 @@
                                     <input type="text" name="subject" id="subject" placeholder="Sujet...">
                                 </fieldset>
                                 @error('subject')
-                                    {{ $message }}
+                                    <span class="text-danger"> {{ $message }} </span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -432,7 +434,7 @@
                                     <input type="number" name="tlf" id="tlf" placeholder="Téléphone...">
                                 </fieldset>
                                 @error('tlf')
-                                    {{ $message }}
+                                    <span class="text-danger"> {{ $message }} </span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -441,7 +443,7 @@
                                     <textarea name="message" id="message" placeholder="Votre Message"></textarea>
                                 </fieldset>
                                 @error('message')
-                                    {{ $message }}
+                                    <span class="text-danger"> {{ $message }} </span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">

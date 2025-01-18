@@ -30,4 +30,17 @@ class StoreMessageRequest extends FormRequest
              
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "Le nom est obligatoire",
+            "email" => "L'Email est obligatoire",
+            "tlf" => "Le numéro est obligatoire",
+            "subject" => "Le sujet est obligatoire",
+            "message" => "Le message est obligatoire",
+
+        ];
+    }
+
 }

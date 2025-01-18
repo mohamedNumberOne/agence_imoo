@@ -33,7 +33,7 @@ class StoreRealStateRequest extends FormRequest
             // 'prix' => "" ,
             'adresse' => "required|" ,
             'nb_pieces' => "numeric|min:1|max:29" ,
-            // 'etage' => "required|" , 
+            'description' => "required|" , 
         ];
     }
 }

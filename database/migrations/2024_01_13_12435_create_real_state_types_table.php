@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('real_state_types', function (Blueprint $table) {
             $table->id();
             $table->string("nom_type");
+            $table->string("class_rech")-> nullable()-> default("NULL")  ;
+
             $table->timestamps();
         });
     }

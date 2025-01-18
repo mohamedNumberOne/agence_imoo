@@ -82,11 +82,7 @@
 
 
                                 <div class="col-md-4 " id="data-container">
-                                    {{-- 
-                                        @foreach ($all_dairas as $daira)
-                                            <option value=" {{ $daira->id }}"> {{ $daira->name }} </option>
-                                        @endforeach
-                                   --}}
+                                    {{-- ajax --}}
                                 </div>
 
 
@@ -157,6 +153,14 @@
                                     @enderror
                                 </div>
 
+                                <div class="col-md-12">
+                                    <label for="description" class="form-label"> description </label>
+                                    <textarea required class="form-control" id="description" name="description" rows="6"
+                                         value="{{ old('description') }}"></textarea>
+                                    @error('description')
+                                        <span class="text-danger text-center"> {{ $message }} </span>
+                                    @enderror
+                                </div>
 
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary"> Ajouter </button>

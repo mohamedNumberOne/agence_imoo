@@ -7,8 +7,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <span class="breadcrumb"><a href="#">Home</a> / Contact Us</span>
-                    <h3>Contact Us</h3>
+                    <span class="breadcrumb"><a href="/">Accueil</a> / Contact </span>
+                    <h3>    Prendre un R.D.V </h3>
                 </div>
             </div>
         </div>
@@ -26,10 +26,14 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="section-heading">
-                        <h6>| Contact Us</h6>
-                        <h2>Get In Touch With Our Agents</h2>
+                        <h6>|  Contacter Nous  </h6>
+                        <h2>Contactez nos agents</h2>
                     </div>
-                    <p>Bienvenue chez Nous {company_name} , votre partenaire de confiance pour tous vos projets immobiliers.
+                    <p>Bienvenue chez    
+                        @foreach ($info_company as $info)
+                          <b>  {{ $info -> company_name }} </b>
+                        @endforeach
+                        , votre partenaire de confiance pour tous vos projets immobiliers.
                         Que vous cherchiez à acheter, vendre, louer ou investir, notre équipe est à votre disposition pour
                         vous accompagner à chaque étape.
                         <br>
@@ -44,9 +48,11 @@
                         <div class="col-lg-12">
                             <div class="item phone">
                                 <img src="assets/images/phone-icon.png" alt="" style="max-width: 52px;">
-                                <h6> @foreach ($info_company as $info)
+                                <h6> 
+                                    @foreach ($info_company as $info)
                                         {{ $info->company_tlf1 }}
-                                    @endforeach<br><span>  Numéro de téléphone  </span></h6>
+                                    @endforeach<br><span>  Numéro de téléphone  </span>
+                                </h6>
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -74,7 +80,7 @@
                                         required>
                                 </fieldset>
                                 @error('name')
-                                    {{ $message }}
+                                   <span class="text-danger" > {{ $message }} </span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -84,7 +90,7 @@
                                         placeholder="E-mail @" required="">
                                 </fieldset>
                                 @error('name')
-                                    {{ $message }}
+                                    <span class="text-danger" >  {{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -93,7 +99,7 @@
                                     <input type="text" name="subject" id="subject" placeholder="Sujet...">
                                 </fieldset>
                                 @error('subject')
-                                    {{ $message }}
+                                   <span class="text-danger" >   {{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -102,7 +108,7 @@
                                     <input type="number" name="tlf" id="tlf" placeholder="Téléphone...">
                                 </fieldset>
                                 @error('tlf')
-                                    {{ $message }}
+                                  <span class="text-danger" >    {{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">
@@ -111,7 +117,7 @@
                                     <textarea name="message" id="message" placeholder="Votre Message"></textarea>
                                 </fieldset>
                                 @error('message')
-                                    {{ $message }}
+                                  <span class="text-danger" >    {{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-lg-12">

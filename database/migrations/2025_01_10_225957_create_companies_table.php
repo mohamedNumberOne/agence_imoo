@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string("company_tlf1", 15 );
             $table->string("company_tlf2", 15 );
             $table->string("company_email") ;
-            $table->string("company_adresse" )  ;
-            $table->string("fb_link")  ;
+            $table->string("company_adresse")  ;
+            $table->string("fb_link");
             $table->string("insta_link")  ;
             $table->string("tiktok_link")  ;
             $table->timestamps();

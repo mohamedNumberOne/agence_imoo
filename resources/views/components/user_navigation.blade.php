@@ -36,22 +36,28 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="/" class="logo">
                         <h1>Villa</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     {{-- wire:navigate --}}
                     <ul class="nav">
-                        <li><a href="/" class="active" wire:navigate> Accueil </a></li>
+                        <li><a href="/"   wire:navigate> Accueil </a></li>
                         <li><a href="{{ route('nos_immobiliers_page') }}" wire:navigate>
                                 Nos immobiliers
                             </a>
                         </li>
                         {{-- <li><a href=" {{ route('property-details') }} ">Property Details</a></li> --}}
-                        <li><a href="{{ route('contact_us_page') }}" wire:navigate>Contact</a></li>
-                        <li><a href="#"> <span class="icone"> <i class="fa fa-calendar"></i> </span> Schedule a
-                                visit</a></li>
+                        <li><a  wire:navigate  href="{{route('contact_us_page')}}" >
+                            Contact
+                        </a></li>
+                        
+                        <li>
+                            <a href="{{ route('contact_us_page') }}"> <span class="icone"> <i class="fa fa-calendar"></i> </span>
+                                Prendre un RDV
+                            </a>
+                        </li>
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>

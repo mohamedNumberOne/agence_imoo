@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('statut', ["disponible", 'réservé', "loué", "vendu"])->default("disponible");
 
             $table->text("adresse");
+            $table->text("description");
+          
             $table->string("Superficie");
             $table->string("prix");
             $table->enum('transaction', ["vente", 'location', "partenariat", "autre"])->default("vente");
