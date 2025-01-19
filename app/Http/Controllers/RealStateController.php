@@ -170,7 +170,8 @@ class RealStateController extends ImageController
             "nb_pieces" => $request->nb_pieces,
             "transaction" => $request->transaction,
             "description" => $request->description,
-
+            "num_prop" => $request->num_prop,
+            
         ]);
 
 
@@ -254,9 +255,10 @@ class RealStateController extends ImageController
                 "transaction" => $request->transaction,
                 "description" => $request->description,
                 "statut" => $request->statut,
+                "num_prop" => $request->num_prop,
 
             ]);
-
+            
 
             // ImageController
 

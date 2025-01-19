@@ -66,7 +66,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="wilaya" class="form-label"> Wilaya </label>
                                     <select id="wilaya" class="form-select" name="wilaya">
                                         <option> </option>
@@ -81,16 +81,25 @@
                                 </div>
 
 
-                                <div class="col-md-4 " id="data-container">
+                                <div class="col-md-3 " id="data-container">
                                     {{-- ajax --}}
                                 </div>
 
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputAddress" class="form-label">Address</label>
                                     <input type="text" class="form-control" id="inputAddress"
                                         placeholder="Address..." value="{{ old('adresse') }}" name="adresse">
                                     @error('adresse')
+                                        <span class="text-danger text-center"> {{ $message }} </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="num_prop" class="form-label">Num. Propriétaire</label>
+                                    <input type="text" class="form-control" id="num_prop"
+                                        placeholder="Télph. Propriétaire" value="{{ old('num_prop') }}" name="num_prop">
+                                    @error('num_prop')
                                         <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
                                 </div>

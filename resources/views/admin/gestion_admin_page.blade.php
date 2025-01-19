@@ -33,6 +33,7 @@
                                     <td> Adresse </td>
                                     <td> Photo </td>
                                     <td> Statut </td>
+                                    <td> numéro Prop. </td>
                                     <td> Action </td>
                                 </tr>
                                 @foreach ($all_real_states as $rs)
@@ -68,6 +69,9 @@
 
                                         @endswitch
 
+                                    </td>
+                                    <td>
+                                        {{ $rs-> num_prop }}
                                     </td>
                                     <td>
 

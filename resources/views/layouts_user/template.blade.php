@@ -22,32 +22,6 @@
 <body>
 
 
-
-
-    {{-- <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-
-        @if (Route::has('login'))
-        <livewire:welcome.navigation />
-        @endif
-    </header> --}}
-
-
-    <!-- ***** Preloader Start ***** -->
-    {{-- <div id="js-preloader" class="js-preloader">
-        <div class="preloader-inner">
-            <span class="dot"></span>
-            <div class="dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div> --}}
-    <!-- ***** Preloader End ***** -->
-
-
-
-
     @include('components.user_navigation')
 
 

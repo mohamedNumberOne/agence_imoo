@@ -19,13 +19,13 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="main-image">
-                       <img src=" {{ asset('storage/'. $immo-> photo_principale  ) }} " alt="photo_principale">
+                        <img src=" {{ asset('storage/' . $immo->photo_principale) }} " alt="photo_principale">
                     </div>
                     <div class="main-content">
                         <span class="category mb-4"> {{ $immo->nom_type }} </span>
-                      
-                        <h4>  <i class="fas fa-home"></i> |  {{ $immo-> wilaya_name  }}, {{ $immo->adresse }} </h4>
-                        <h5 class="mb-2" > Description  </h5>
+
+                        <h4> <i class="fas fa-home"></i> | {{ $immo->wilaya_name }}, {{ $immo->adresse }} </h4>
+                        <h5 class="mb-2"> Description </h5>
                         <p>
                             {{ $immo->description }}
                         </p>
@@ -96,31 +96,56 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="info-table">
-                        
+
                         <ul>
+                            <li>
+                                @if (!empty($immo->statut) && $immo->statut != null)
+                                    @switch($immo-> statut)
+                                        @case('disponible')
+                                            <h4>
+                                                <span class="badge bg-success text-white"> {{ $immo->statut }} </span>  
+                                                @foreach ($info_company as $info)
+                                                 <span class=" mt-2 text-dark" >  |  {{ $info->company_tlf1 }} </span>
+                                                @endforeach
+                                            </h4>
+                                        @break
+                                        @case('réservé')
+                                            <h4> <span class="badge bg-primary text-white"> {{ $immo->statut }} </span> </h4>
+                                        @break
+
+                                        @case('loué')
+                                            <h4> <span class="badge bg-danger text-white"> {{ $immo->statut }} </span> </h4>
+                                        @break
+
+                                        @case('vendu')
+                                            <h4> <span class="badge bg-warning text-white"> {{ $immo->statut }} </span> </h4>
+                                        @break
+                                    @endswitch
+                                @endif
+
+                            </li>
                             @if (!empty($immo->Superficie) && $immo->Superficie != null)
                                 <li>
-                                    <img src="{{asset('assets/images/info-icon-01.png')}}" alt="" style="max-width: 52px;"> 
-                                    <h4> {{ $immo->Superficie }}   <br><span> Superficie </span></h4>
+                                    <img src="{{ asset('assets/images/info-icon-01.png') }}" alt=""
+                                        style="max-width: 52px;">
+                                    <h4> {{ $immo->Superficie }} <br><span> Superficie </span></h4>
                                 </li>
                             @endif
                             <li>
-                                <img src="{{asset('assets/images/info-icon-02.png')}}" alt="" style="max-width: 52px;">
+                                <img src="{{ asset('assets/images/info-icon-02.png') }}" alt=""
+                                    style="max-width: 52px;">
                                 <h4>Contract<br><span>Contrat </span></h4>
                             </li>
                             <li>
-                                <img src="{{asset('assets/images/info-icon-03.png')}}" alt="" style="max-width: 52px;">
-                                <h4>Payment<br><span>Payment Process</span></h4>
+                                <img src="{{ asset('assets/images/info-icon-03.png') }}" alt=""
+                                    style="max-width: 52px;">
+                                <h4>Paiement <br><span>Procédure</span></h4>
                             </li>
-                            <li>
-                                <img src="{{asset('assets/images/info-icon-04.png')}}" alt="" style="max-width: 52px;">
-                                <h4>Safety<br><span>24/7 Under Control</span></h4>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
- 
 @endsection

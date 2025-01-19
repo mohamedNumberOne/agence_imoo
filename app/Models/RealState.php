@@ -24,8 +24,7 @@ class RealState extends Model
         "transaction",
         "nb_pieces",
         "description",
+        "num_prop",
 
-    
-        
     ];
 }

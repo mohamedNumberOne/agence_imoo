@@ -39,7 +39,7 @@
 
                                 <div class="col-md-4">
                                     <label for="inputAddress" class="form-label">numéro 1</label>
-                                    <input type="number" class="form-control" id="inputAddress"
+                                    <input type="text" class="form-control" id="inputAddress"
                                         value="{{ $info_company->company_tlf1 }}" name="company_tlf1">
                                     @error('company_tlf1')
                                         <span class="text-danger text-center"> {{ $message }} </span>
@@ -49,7 +49,7 @@
 
                                 <div class="col-md-4">
                                     <label for="company_tlf2" class="form-label">numéro 2</label>
-                                    <input type="number" class="form-control" id="company_tlf2"
+                                    <input type="text" class="form-control" id="company_tlf2"
                                         value="{{ $info_company->company_tlf2 }}" name="company_tlf2">
                                     @error('company_tlf2')
                                         <span class="text-danger text-center"> {{ $message }} </span>
