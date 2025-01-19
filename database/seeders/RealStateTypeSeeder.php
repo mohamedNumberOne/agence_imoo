@@ -15,12 +15,14 @@ class RealStateTypeSeeder extends Seeder
         [
             'id' => NULL,
             'nom_type' => 'Villa',
+            'class_rech' => 'str',
             'created_at' =>  NULL ,
             'updated_at' => NULL,
         ],
         [
             'id' => NULL,
             'nom_type' => 'Appartement',
+            'class_rech' => 'adv',
             'created_at' =>  NULL ,
             'updated_at' => NULL,
 
@@ -28,6 +30,7 @@ class RealStateTypeSeeder extends Seeder
         [
             'id' => NULL,
             'nom_type' => 'Studio',
+            'class_rech' => 'stu',
             'created_at' =>  NULL ,
             'updated_at' =>  NULL,
 
@@ -35,6 +38,7 @@ class RealStateTypeSeeder extends Seeder
         [
             'id' => NULL,
             'nom_type' => 'Terrain',
+            'class_rech' => 'rac',
             'created_at' => NULL ,
             'updated_at' =>  NULL,
 

@@ -14,9 +14,22 @@
     <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <style>
+        .footer {
+            min-height: 100px;
+            display: flex ;
+            justify-content: space-between ;
+            align-items: center;
+            flex-wrap: wrap ;
+            padding: 10px;
+        }
+        .div_footer {
+            margin: 7px  ;
+        }
+    </style>
     @livewireStyles
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
-
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @yield('css')
 </head>
 
 <body>
@@ -25,12 +38,21 @@
     @include('components.user_navigation')
 
 
-
     @yield('content')
 
     <footer>
-        <div class="container">
+        <div class="container text-white   footer ">
+            @foreach ($info_company as $info)
 
+            <div class="div_footer"  >
+                <img src="{{ asset('assets/images/phone-icon.png') }}" alt="img" style="width:50px">
+                {{ $info-> company_tlf2 }} - {{ $info-> company_tlf1 }}
+            </div>
+            <div class="div_footer">
+                <img src="{{ asset('assets/images/email-icon.png') }}" alt="img" style="width:50px"> 
+                {{ $info-> company_email }}
+            </div>
+            @endforeach
         </div>
     </footer>
 
@@ -44,6 +66,7 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @livewireScripts
 
+    @yield('js')
 </body>
 
 </html>

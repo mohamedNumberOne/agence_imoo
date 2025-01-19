@@ -74,7 +74,10 @@ class RealStateController extends ImageController
 
         if ($immo) {
 
-            return view("property-details", compact('immo', "info_company"));
+            $album_photo = Image::where('real_state_id', $id)->get();
+
+            return view("property-details", compact('immo', "info_company" , "album_photo" ) );
+
         } else {
             return redirect()->back();
         }

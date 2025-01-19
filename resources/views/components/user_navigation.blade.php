@@ -6,13 +6,13 @@
                     <li>
                         <span class="icone"> <i class="fa fa-envelope"></i> </span>
                         @foreach ($info_company as $info)
-                            {{ $info->company_email }}
+                        {{ $info->company_email }}
                         @endforeach
                     </li>
                     <li>
                         <span class="icone"> <i class="fa fa-map"></i> </span>
                         @foreach ($info_company as $info)
-                            {{ $info->company_adresse }}
+                        {{ $info->company_adresse }}
                         @endforeach
                     </li>
                 </ul>
@@ -37,24 +37,29 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="/" class="logo">
-                        <h1>Villa</h1>
+                        <h1>  
+                           
+                            <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        </h1>
                     </a>
+               
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     {{-- wire:navigate --}}
                     <ul class="nav">
-                        <li><a href="/"   wire:navigate> Accueil </a></li>
+                        <li><a href="/" wire:navigate> Accueil </a></li>
                         <li><a href="{{ route('nos_immobiliers_page') }}" wire:navigate>
                                 Nos immobiliers
                             </a>
                         </li>
                         {{-- <li><a href=" {{ route('property-details') }} ">Property Details</a></li> --}}
-                        <li><a  wire:navigate  href="{{route('contact_us_page')}}" >
-                            Contact
-                        </a></li>
-                        
+                        <li><a wire:navigate href="{{route('contact_us_page')}}">
+                                Contact
+                            </a></li>
+
                         <li>
-                            <a href="{{ route('contact_us_page') }}"> <span class="icone"> <i class="fa fa-calendar"></i> </span>
+                            <a href="{{ route('contact_us_page') }}"> <span class="icone"> <i
+                                        class="fa fa-calendar"></i> </span>
                                 Prendre un RDV
                             </a>
                         </li>
