@@ -238,7 +238,11 @@ $('.owl-carousel').owlCarousel({
         1000:{
             items:4,
             nav:true,
-            loop:true
+            
+        },
+        1200:{
+            items:3,
+            nav:true,
         }
     },
     nav: true , 
