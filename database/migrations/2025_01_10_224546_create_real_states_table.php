@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string("titre_bien")->nullable();
             $table->string("photo_principale");
-            $table->string("etage");
+            $table->string("etage") -> nullable() ;
             $table->enum('statut', ["disponible", 'réservé', "loué", "vendu"])->default("disponible");
 
             $table->text("adresse");

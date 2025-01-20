@@ -17,14 +17,15 @@
     <style>
         .footer {
             min-height: 100px;
-            display: flex ;
-            justify-content: space-between ;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap ;
+            flex-wrap: wrap;
             padding: 10px;
         }
+
         .div_footer {
-            margin: 7px  ;
+            margin: 7px;
         }
     </style>
     @livewireStyles
@@ -44,13 +45,17 @@
         <div class="container text-white   footer ">
             @foreach ($info_company as $info)
 
-            <div class="div_footer"  >
+            <div class="div_footer">
                 <img src="{{ asset('assets/images/phone-icon.png') }}" alt="img" style="width:50px">
                 {{ $info-> company_tlf2 }} - {{ $info-> company_tlf1 }}
             </div>
             <div class="div_footer">
-                <img src="{{ asset('assets/images/email-icon.png') }}" alt="img" style="width:50px"> 
+                @if ( ! empty( $info-> company_email ) )
+
+
+                <img src="{{ asset('assets/images/email-icon.png') }}" alt="img" style="width:50px">
                 {{ $info-> company_email }}
+                @endif
             </div>
             @endforeach
         </div>

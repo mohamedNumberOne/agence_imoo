@@ -64,7 +64,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <span class="breadcrumb"> Détails / Produit </span>
+                <span class="breadcrumb"> Détails   </span>
                 <h3> N'hésitez pas à nous contacter. </h3>
             </div>
         </div>
