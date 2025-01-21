@@ -43,7 +43,7 @@
                                     <td> {{ $rs-> prix }} DA </td>
                                     <td> {{ $rs-> nom_type }} </td>
                                     <td> {{ $rs-> adresse }} </td>
-                                    <td> <img src="{{  asset( 'storage/' . $rs->photo_principale) }}" alt="image"
+                                    <td> <img src="{{  asset(  $rs->photo_principale) }}" alt="image"
                                             width="70px"> </td>
                                     <td>
                                         @switch( $rs-> statut )

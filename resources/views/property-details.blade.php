@@ -76,7 +76,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="main-image">
-                    <img src=" {{ asset('storage/' . $immo->photo_principale) }} " alt="photo_principale">
+                    <img src=" {{ asset( $immo->photo_principale) }} " alt="photo_principale">
                 </div>
                 <div class="main-content">
                     <span class="category mb-4"> {{ $immo->nom_type }} </span>
@@ -93,8 +93,8 @@
 
                     @foreach ($album_photo as $photo)
                     <div>
-                        <a href="{{  asset('storage/' . $photo -> path_img )  }}" data-lightbox="roadtrip"  >
-                            <img src="{{  asset('storage/' . $photo -> path_img )  }}" alt="image" class="border" style="   height: 200px;">
+                        <a href="{{  asset(  $photo -> path_img )  }}" data-lightbox="roadtrip"  >
+                            <img src="{{  asset( $photo -> path_img )  }}" alt="image" class="border" style="   height: 200px;">
                         </a>
                     </div>
                     @endforeach

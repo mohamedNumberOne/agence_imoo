@@ -158,7 +158,7 @@
                                     <label for="Principale" class="form-label">Photo Principale</label>
                                     <input type="file" class="form-control" id="Principale" name="photo_principale"
                                         accept="image/*">
-                                    <img src="{{ asset('storage/' . $immobilier->photo_principale) }}" alt="image"
+                                    <img src="{{ asset(  $immobilier->photo_principale) }}" alt="image"
                                         width="70px" class="border m-1">
                                     @error('photo_principale')
                                         <span class="text-danger text-center"> {{ $message }} </span>
@@ -171,7 +171,7 @@
                                         name="album_photo[]" accept="image/*">
                                     <div>
                                         @foreach ($all_img as $img)
-                                            <img src="{{ asset('storage/' . $img->path_img) }}" alt="image"
+                                            <img src="{{ asset( $img->path_img) }}" alt="image"
                                                 width="70px" class="border m-1 d-inline-block">
                                         @endforeach
                                     </div>

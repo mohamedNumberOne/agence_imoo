@@ -29,7 +29,7 @@
             <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 {{ $immo->class_rech }} ">
                 <div class="item">
                     <a href="{{ route('details_immo', $immo->rs_id) }}">
-                        <div style="height: 200px; width:  100% ; background-image: url({{ asset('storage/' . $immo->photo_principale) }}) 
+                        <div style="height: 200px; width:  100% ; background-image: url({{ asset(  $immo->photo_principale) }}) 
                                     ; background-size : cover ; background-repeat : no-repeat ;background-position :center ;
                                     ">
                         </div>

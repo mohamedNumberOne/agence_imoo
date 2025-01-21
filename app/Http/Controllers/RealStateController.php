@@ -16,6 +16,7 @@ use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
 use TheHocineSaad\LaravelAlgereography\Models\Daira;
 
 use function Laravel\Prompts\select;
+use function PHPUnit\Framework\fileExists;
 
 // use App\Http\Controllers\ImageController; 
 
@@ -236,8 +237,14 @@ class RealStateController extends ImageController
 
             $file = $request->file('photo_principale');
             $path_photo_principale = $file->store('produits', 'public');
+
+            if(file_exists( public_path(   $immo->photo_principale   ) ) ) {
+                unlink( public_path(  $immo->photo_principale))   ;
+            }
+
+           
         } else {
-            $path_photo_principale  = $immo->photo_principale;
+            $path_photo_principale  = $immo->photo_principale  ;
         }
 
 
@@ -281,14 +288,16 @@ class RealStateController extends ImageController
         $immo =   RealState::find($id);
 
         if ($immo) {
-            file_exists('storage/' . $immo->photo_principale) ? unlink('storage/' .  $immo->photo_principale) : "";
-
+            file_exists( public_path('produits/' . $immo->photo_principale) ) ? 
+            unlink( public_path('produits/' . $immo->photo_principale)) : "";
 
 
             $imgs =  Image::where('real_state_id', $id)->get();
 
             foreach ($imgs as $img) {
-                file_exists('storage/' . $img->path_img) ? unlink('storage/' .  $img->path_img) : "";
+                
+                file_exists(  public_path('produits/' . $immo->path_img) ) ? 
+                unlink(  public_path('produits/' . $immo->path_img)  ) : "";
             }
 
             $immo->delete();
