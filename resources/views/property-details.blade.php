@@ -6,8 +6,7 @@
 <link href="{{ asset('assets/owl/owl.theme.default.min.css') }}" rel="stylesheet" />
 
 <style>
-    <style>
-    .custom-prev,
+    <style>.custom-prev,
     .custom-next {
         background-color: #3498db;
         color: #fff;
@@ -30,29 +29,31 @@
         position: absolute;
         top: 40%;
         width: 100%;
-        transform: translateY(-50%) ;
-        pointer-events: none; /* Empêche les clics sur la zone nav */
-     
+        transform: translateY(-50%);
+        pointer-events: none;
+        /* Empêche les clics sur la zone nav */
+
     }
 
-    .owl-nav i  {
+    .owl-nav i {
         font-size: 35px;
         opacity: 0.9;
         padding: 7px;
-        border-radius: 50% ;
-        background-color: #f35525 !important ;
-        color:white;
+        border-radius: 50%;
+        background-color: #f35525 !important;
+        color: white;
 
     }
 
     .owl-nav button {
-        pointer-events: auto; /* Réactive les clics sur les boutons */ 
+        pointer-events: auto;
+        /* Réactive les clics sur les boutons */
     }
 
     .owl-dots {
         text-align: center;
         margin-top: 20px;
-      
+
     }
 </style>
 
@@ -60,16 +61,7 @@
 @endsection
 
 @section('content')
-<div class="page-heading header-text">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="breadcrumb"> Détails   </span>
-                <h3> N'hésitez pas à nous contacter. </h3>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="single-property section">
     <div class="container">
@@ -81,7 +73,9 @@
                 <div class="main-content">
                     <span class="category mb-4"> {{ $immo->nom_type }} </span>
 
-                    <h4> <i class="fas fa-home"></i> | {{ $immo->wilaya_name }}, {{ $immo->adresse }} </h4>
+                    <h4> <i class="fas fa-home"></i> | {{ $immo->wilaya_name }},
+                        {{ $immo->daira_name }},
+                        {{ $immo->adresse }} </h4>
                     <h5 class="mb-2"> Description </h5>
                     <p>
                         {{ $immo->description }}
@@ -90,11 +84,14 @@
                 <hr>
 
                 <div class="owl-carousel">
-
+                 
                     @foreach ($album_photo as $photo)
+                 
                     <div>
-                        <a href="{{  asset(  $photo -> path_img )  }}" data-lightbox="roadtrip"  >
-                            <img src="{{  asset( $photo -> path_img )  }}" alt="image" class="border" style="   height: 200px;">
+                        <a href="{{  asset(  $photo -> path_img )  }}" data-lightbox="roadtrip">
+                            <img src="{{  asset( $photo -> path_img )  }}" alt="image" class="border"
+                                style="   height: 200px;">
+                                
                         </a>
                     </div>
                     @endforeach
@@ -225,7 +222,6 @@ $('.owl-carousel').owlCarousel({
     loop:true,
     margin:10,
     responsiveClass:true,
-    margin: 10,
     responsive:{
         0:{
             items:1,

@@ -26,18 +26,21 @@
         <div class="row properties-box">
 
             @foreach ($all_immo as $immo)
+
             <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 {{ $immo->class_rech }} ">
                 <div class="item">
-                    <a href="{{ route('details_immo', $immo->rs_id) }}">
-                        <div style="height: 200px; width:  100% ; background-image: url({{ asset(  $immo->photo_principale) }}) 
-                                    ; background-size : cover ; background-repeat : no-repeat ;background-position :center ;
-                                    ">
-                        </div>
 
+                    <a href="{{ route('details_immo', $immo->rs_id) }}">
+                        <div
+                            style="height: 200px; width:  100% ; 
+                        background-image: url({{ asset(  $immo->photo_principale ) }}) ; background-size : cover ; background-repeat : no-repeat ;background-position :center ;">
+                        </div>
                     </a>
 
-                    <span class="category"> {{ $immo->transaction }} - {{ $immo->nom_type }} </span>
+                    <span class="category"> {{ $immo-> titre_bien }} </span>
+
                     <h6> {{ $immo->prix }} </h6>
+
                     <hr>
 
                     @switch($immo-> statut)
@@ -59,7 +62,7 @@
                     @endswitch
 
 
-                    <h4><a href="{{ route('details_immo', $immo->rs_id) }}"> {{ $immo->wilaya_name }} |
+                    <h4><a href="{{ route('details_immo', $immo->rs_id) }}"> {{ $immo->wilaya_name }} |  {{ $immo->daira_name }}, 
                             {{ $immo->adresse }} </a></h4>
                     <ul>
 
@@ -77,7 +80,7 @@
 
                     </ul>
                     <div class="main-button">
-                        <a href="{{ route('details_immo', $immo->rs_id) }}"> visiter</a>
+                        <a href="{{ route('details_immo', $immo->rs_id) }}"> visiter </a>
                     </div>
                 </div>
             </div>

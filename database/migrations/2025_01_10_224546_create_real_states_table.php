@@ -24,7 +24,7 @@ return new class extends Migration
           
             $table->string("Superficie");
             $table->string("prix");
-            $table->string("num_prop");
+            $table->string("num_prop")  -> nullable()  ;
             $table->enum('transaction', ["vente", 'location', "partenariat", "autre"])->default("vente");
             $table->tinyInteger("nb_pieces") -> nullable() ;
 

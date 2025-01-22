@@ -11,7 +11,7 @@ use App\Models\Image;
 use App\Models\RealStateType;
 // use App\Models\Wilaya;
 // use App\Models\Daira;
-use App\Http\Requests\StoreCompanyRequest ;
+use App\Http\Requests\StoreCompanyRequest;
 use TheHocineSaad\LaravelAlgereography\Models\Wilaya;
 use TheHocineSaad\LaravelAlgereography\Models\Daira;
 
@@ -41,14 +41,26 @@ class RealStateController extends ImageController
 
     public function nos_immobiliers_page()
     {
-
+       
         $info_company = $this->get_info_company();
         $all_immo = RealState::join("real_state_types", "real_states.real_state_type_id",  '=', 'real_state_types.id')
             ->join('wilayas', "wilayas.id", '=', "real_states.wilaya_id")
-            ->select("real_states.*", 'real_state_types.*', 'real_state_types.id as test_id', 'real_states.id as rs_id',  'wilayas.name as wilaya_name')
-            ->get();
-        // return  dd($all_immo) ;
-        return view("properties", compact('info_company', "all_immo"));
+            ->join('dairas', "real_states.daira_id", '=', "dairas.id")
+            ->select(
+                "real_states.*",
+                'real_state_types.*',
+                'real_state_types.id as test_id',
+                'real_states.id as rs_id',
+                'wilayas.name as wilaya_name',
+                "dairas.name as daira_name"
+            )
+            -> orderBy('real_states.id', 'desc')->take(6)->get();
+
+
+        //    $t =  RealState::inRandomOrder()->take(1)->get(); 
+
+        // return  dd($t) ; 
+        return view("properties", compact('info_company', "all_immo"  ));
     }
 
 
@@ -58,7 +70,9 @@ class RealStateController extends ImageController
     public function index_page()
     {
         $info_company = $this->get_info_company();
-        return view("welcome", compact('info_company'));
+        $ajout_recent = RealState::orderBy('id', 'desc')->take(6)->get();
+        
+        return view("welcome", compact('info_company' , "ajout_recent" ));
     }
 
 
@@ -67,8 +81,9 @@ class RealStateController extends ImageController
     {
         $immo = RealState::join('real_state_types', 'real_states.real_state_type_id', '=', 'real_state_types.id')
             ->join('wilayas', "wilayas.id", '=', "real_states.wilaya_id")
+            ->join('dairas', "real_states.daira_id", '=', "dairas.id")
             ->where('real_states.id', $id) // Filtrer par l'ID du bien immobilier
-            ->select('real_states.*', 'real_state_types.nom_type as nom_type', 'wilayas.name as wilaya_name' )
+            ->select('real_states.*', 'real_state_types.nom_type as nom_type', 'wilayas.name as wilaya_name', "dairas.name as daira_name")
             ->first();
 
         $info_company = $this->get_info_company();
@@ -77,10 +92,9 @@ class RealStateController extends ImageController
 
             $album_photo = Image::where('real_state_id', $id)->get();
 
-            return view("property-details", compact('immo', "info_company" , "album_photo" ) );
-
+            return view("property-details", compact('immo', "info_company", "album_photo"));
         } else {
-            return redirect()->back();
+            return redirect()-> route("nos_immobiliers_page") ;
         }
     }
 
@@ -91,24 +105,24 @@ class RealStateController extends ImageController
     // ADMIN :
 
 
-    
+
 
     public function info_company()
     {
-        $info_company =  Company::first() ;
-       
+        $info_company =  Company::first();
+
 
         return view("admin.info", compact("info_company"));
     }
 
-    public function update_company(StoreCompanyRequest $r ,  $id )
+    public function update_company(StoreCompanyRequest $r,  $id)
     {
         $company =  Company::find($id);
 
-        if( $company ) {
+        if ($company) {
 
- 
-            $company-> update([
+
+            $company->update([
 
                 "company_name" => $r->company_name,
                 "company_tlf1" => $r->company_tlf1,
@@ -120,17 +134,15 @@ class RealStateController extends ImageController
                 "tiktok_link" => $r->tiktok_link,
                 // "tiktok_link" => $r->tiktok_link, 
 
-            ]) ;
+            ]);
             return  redirect()->back()->with('success', 'informations modifiées');
-
         }
 
-        return  redirect()->back() ; 
-
+        return  redirect()->back();
     }
 
 
-    
+
     public function immobilier_admin_page()
     {
         $RealStateType =  RealStateType::all();
@@ -175,7 +187,7 @@ class RealStateController extends ImageController
             "transaction" => $request->transaction,
             "description" => $request->description,
             "num_prop" => $request->num_prop,
-            
+
         ]);
 
 
@@ -199,7 +211,9 @@ class RealStateController extends ImageController
     {
 
         $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
-            ->select("real_states.*", "real_state_types.nom_type as nom_type") // Facultatif : sélectionnez les colonnes nécessaires
+            ->select("real_states.*", "real_state_types.nom_type as nom_type")
+            -> orderBy('real_states.id', 'desc')->take(6)  
+            // Facultatif : sélectionnez les colonnes nécessaires
             ->paginate(8);
 
         return view("admin.gestion_admin_page", compact('all_real_states'));
@@ -238,13 +252,11 @@ class RealStateController extends ImageController
             $file = $request->file('photo_principale');
             $path_photo_principale = $file->store('produits', 'public');
 
-            if(file_exists( public_path(   $immo->photo_principale   ) ) ) {
-                unlink( public_path(  $immo->photo_principale))   ;
+            if (file_exists(public_path($immo->photo_principale))) {
+                unlink(public_path($immo->photo_principale));
             }
-
-           
         } else {
-            $path_photo_principale  = $immo->photo_principale  ;
+            $path_photo_principale  = $immo->photo_principale;
         }
 
 
@@ -268,7 +280,7 @@ class RealStateController extends ImageController
                 "num_prop" => $request->num_prop,
 
             ]);
-            
+
 
             // ImageController
 
@@ -288,19 +300,20 @@ class RealStateController extends ImageController
         $immo =   RealState::find($id);
 
         if ($immo) {
-            file_exists( public_path('produits/' . $immo->photo_principale) ) ? 
-            unlink( public_path('produits/' . $immo->photo_principale)) : "";
+            file_exists(public_path($immo->photo_principale)) ?
+                unlink(public_path($immo->photo_principale)) : "";
 
 
             $imgs =  Image::where('real_state_id', $id)->get();
 
             foreach ($imgs as $img) {
                 
-                file_exists(  public_path('produits/' . $immo->path_img) ) ? 
-                unlink(  public_path('produits/' . $immo->path_img)  ) : "";
+                    file_exists(public_path($img->path_img)) ?  unlink(public_path($img->path_img)) : "";
+                
             }
 
             $immo->delete();
+
             return redirect()->back()->with('success',  "produit supprimé");
         } else {
             return redirect()->back();

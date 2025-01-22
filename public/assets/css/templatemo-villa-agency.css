@@ -130,11 +130,11 @@ body {
 }
 
 .section {
-  margin-top: 120px;
+  margin-top: 30px;
 }
 
 .section-heading {
-  margin-bottom: 70px;
+  margin-bottom: 30px;
 }
 
 .section-heading h2 {
@@ -1271,7 +1271,7 @@ Contact Style
 }
 
 .contact-content .item h6 {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   vertical-align: middle;
 }
@@ -1498,8 +1498,8 @@ Single Page Style
 
 .single-property .main-content h4 {
   font-size: 25px;
-  margin-top: 25px;
-  margin-bottom: 40px;
+  margin-top: 5px;
+  margin-bottom: 20px;
   padding-bottom: 40px;
   border-bottom: 1px solid #eee;
 }
@@ -1603,7 +1603,7 @@ Contact Page Style
 }
 
 .contact-page .section-heading {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   margin-right: 280px;
 }
 
