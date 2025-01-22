@@ -61,8 +61,8 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="counter">
-                                <h2 class="timer count-title count-number" data-to="34" data-speed="1000"></h2>
-                                <p class="count-text ">Buildings<br>Finished Now</p>
+                            
+                                <p class="count-text ">Numéro 1 <br> Dans l'immobilier   </p>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -73,8 +73,8 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="counter">
-                                <h2 class="timer count-title count-number" data-to="24" data-speed="1000"></h2>
-                                <p class="count-text ">Awwards<br>Won 2023</p>
+                            
+                                <p class="count-text ">Dans le marché<br>Depuis 2020 </p>
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,7 @@ class StoreRealStateRequest extends FormRequest
             'superficie' => "required|" ,
             // 'prix' => "" ,
             'adresse' => "required|" ,
-            // 'nb_pieces' => "nullable|numeric|min:1|max:29" , 
+            'nb_pieces' => "nullable|numeric|min:1|max:29" , 
             'description' => "required|" , 
         ];
     }
