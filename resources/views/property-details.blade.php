@@ -71,23 +71,35 @@
                         <img src=" {{ asset($immo->photo_principale) }} " alt="photo_principale">
                     </div>
                     <div class="main-content">
-                        <span class="category mb-4"> <i class="fas fa-home"></i> {{ $immo->titre_bien }} </span>
-                        <span class="category mb-4">  <i class="fa-solid fa-money-bill-wave"></i>  {{ $immo->prix }} </span>
+                        <div class="mt-2 " >
+                        @foreach ($info_company as $info)
+                            <span class=" category mt-2 text-dark"> <i class="fa-solid fa-phone-volume"></i>
+                                <a href="tel:{{ $info->company_tlf1 }}"> {{ $info->company_tlf1 }} </a> / 
+                                <a href="tel:{{ $info->company_tlf2 }}">  {{ $info->company_tlf2 }} </a>
+                            </span>
+                        @endforeach
+                        </div>
+                      
                         <span class="category mb-4"> <i class="fa-solid fa-handshake"></i> {{ $immo->transaction }} </span>
+                        <span class="category mb-4"> <i class="fas fa-home"></i> {{ $immo->titre_bien }} </span>
+                        <span class="category mb-4"> <i class="fa-solid fa-money-bill-wave"></i> {{ $immo->prix }} </span>
+
 
                         <ul class="mb-4 ">
                             @if (!empty($immo->etage) && $immo->etage != null)
                                 <li class="badge bg-secondary"> étage : {{ $immo->etage }} </li>
                             @endif
                             @if (!empty($immo->nb_pieces) && $immo->nb_pieces != null)
-                                <li class="badge bg-secondary"> Nombre de piéces : {{ $immo->nb_pieces }} </li>
+                                <li class="badge bg-secondary"> Nombre de chambres : {{ $immo->nb_pieces }} </li>
                             @endif
                         </ul>
 
                         <h4>
-                            <i class="fas fa-home"></i> | {{ $immo->wilaya_name }},
-                            {{ $immo->daira_name }},
-                            {{ $immo->adresse }}
+                            @if (!empty($immo->adresse))
+                                <i class="fas fa-home"></i> | {{ $immo->wilaya_name }},
+                                {{ $immo->daira_name }},
+                                {{ $immo->adresse }}
+                            @endif
                         </h4>
 
 
@@ -250,6 +262,11 @@
                         nav: true
                     },
                     1000: {
+                        items: 3,
+                        nav: true,
+
+                    },
+                    1300: {
                         items: 4,
                         nav: true,
 

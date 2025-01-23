@@ -10,19 +10,19 @@
                         @endforeach
                     </li>
                     <li>
-                        <span class="icone"> <i class="fa fa-map"></i> </span>
+                        <span class="icone"> <i class="fa-solid fa-phone-volume"></i> </span>
                         @foreach ($info_company as $info)
-                        {{ $info->company_adresse }}
+                       <a href="tel:{{ $info->company_tlf1 }}">    {{ $info->company_tlf1 }}  </a> -  <a href="tel:{{ $info->company_tlf1 }}">   {{ $info->company_tlf2 }}  </a>
                         @endforeach
                     </li>
                 </ul>
             </div>
             <div class="col-lg-4 col-md-4">
                 <ul class="social-links">
-                    <li><a href="{{ $info->fb_link }}"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="{{ $info->fb_link }}" target="_blank" ><i class="fab fa-facebook"></i></a></li>
 
-                    <li><a href="{{ $info->tiktok_link }}"><i class="fa-brands fa-tiktok"></i></a></li>
-                    <li><a href="{{ $info->insta_link }}"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="{{ $info->tiktok_link }}" target="_blank" ><i class="fa-brands fa-tiktok"></i></a></li>
+                    <li><a href="{{ $info->insta_link }}" target="_blank" ><i class="fab fa-instagram"></i></a></li>
                 </ul>
             </div>
         </div>
