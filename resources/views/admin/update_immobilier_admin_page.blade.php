@@ -43,12 +43,12 @@
                                 <div class="col-md-3">
                                     <label for="stat" class="form-label"> Statut </label>
                                     <select id="stat" class="form-select" name="statut" required>
-                                          <option> </option>
-                                         
-                                         <option value="disponible"> disponible </option>
-                                         <option value="réservé"> réservé </option>
-                                         <option value="loué"> loué </option>
-                                         <option value="vendu"> vendu </option>
+                                        <option> </option>
+
+                                        <option value="disponible"> disponible </option>
+                                        <option value="réservé"> réservé </option>
+                                        <option value="loué"> loué </option>
+                                        <option value="vendu"> vendu </option>
                                     </select>
                                     @error('statut')
                                         <span class="text-danger text-center"> {{ $message }} </span>
@@ -65,7 +65,8 @@
                                             @if ($type->nom_type != $immobilier->nom_type)
                                                 <option value=" {{ $type->id }}"> {{ $type->nom_type }} </option>
                                             @else
-                                                <option value=" {{ $type->id }}" selected> {{ $type->nom_type }} </option>
+                                                <option value=" {{ $type->id }}" selected> {{ $type->nom_type }}
+                                                </option>
                                             @endif
                                         @endforeach
 
@@ -146,7 +147,8 @@
                                 <div class="col-md-3">
                                     <label for="num_prop" class="form-label">Num. Propriétaire</label>
                                     <input type="text" class="form-control" id="num_prop"
-                                        placeholder="Telph. Propriétaire" value="{{ $immobilier->num_prop }}" name="num_prop">
+                                        placeholder="Telph. Propriétaire" value="{{ $immobilier->num_prop }}"
+                                        name="num_prop">
                                     @error('num_prop')
                                         <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
@@ -156,23 +158,23 @@
 
                                 <div class="col-md-5">
                                     <label for="Principale" class="form-label">Photo Principale</label>
-                                    <input type="file" class="form-control" id="Principale" name="photo_principale"
-                                        accept="image/*">
-                                    <img src="{{ asset(  $immobilier->photo_principale) }}" alt="image"
+                                    <input type="file" class="form-control" id="Principale"
+                                        name="photo_principale" accept="image/*">
+                                    <img src="{{ asset($immobilier->photo_principale) }}" alt="image"
                                         width="70px" class="border m-1">
                                     @error('photo_principale')
                                         <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-7">
+                                <div class="col-md-5">
                                     <label for="Album" class="form-label">Album photos</label>
                                     <input type="file" class="form-control" id="Album" multiple
                                         name="album_photo[]" accept="image/*">
                                     <div>
                                         @foreach ($all_img as $img)
-                                            <img src="{{ asset( $img->path_img) }}" alt="image"
-                                                width="70px" class="border m-1 d-inline-block">
+                                            <img src="{{ asset($img->path_img) }}" alt="image" width="70px"
+                                                class="border m-1 d-inline-block">
                                         @endforeach
                                     </div>
                                     @error('album_photo')
@@ -180,7 +182,22 @@
                                     @enderror
                                 </div>
 
+                                <div class="col-md-2">
+                                    <label class="form-label"> Actif </label>
+                                    <div class="pt-3">
+                                        oui <input type="radio" name="is_actif" value="1"
+                                            @php if( $immobilier-> is_actif ) { echo 'checked'; } @endphp> /
+                                        non <input type="radio" name="is_actif" value="0"
+                                            @php if( ! $immobilier-> is_actif ) { echo 'checked'; } @endphp>
+                                    </div>
+                                    @error('is_actif')
+                                        <span class="text-danger text-center"> {{ $message }} </span>
+                                    @enderror
+                                </div>
+
                                 <hr>
+
+
 
                                 <div class="col-md-3">
                                     <label for="Superficie" class="form-label"> Superficie </label>
@@ -220,8 +237,7 @@
 
                                 <div class="col-md-12">
                                     <label for="description" class="form-label"> description </label>
-                                    <textarea required class="form-control" id="description" name="description" rows="6"
-                                         >{{ $immobilier->description }}</textarea>
+                                    <textarea required class="form-control" id="description" name="description" rows="6">{{ $immobilier->description }}</textarea>
                                     @error('description')
                                         <span class="text-danger text-center"> {{ $message }} </span>
                                     @enderror

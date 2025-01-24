@@ -23,7 +23,7 @@
 
 
                         <div class="col-md-11">
-
+                           {{-- <span class="badge bg-primary mt-2 mb-3" > Total : {{ count($all_real_states) }}  </span>  --}}
                             <table class="table table-bordered border-secondary text-center">
                                 <tr>
 

@@ -12,6 +12,7 @@ Route::get('/contact', [RealStateController::class, 'contact_page'])->name('cont
 Route::get('/', [RealStateController::class, 'index_page'])->name('welcome_page');
 Route::get('/details/{id}', [RealStateController::class, 'details_immo'])->name('details_immo');
 
+Route::post('/add_message', [MessageController::class, 'add_message'])->name('add_message');
 
 // ADMIN
 
@@ -37,7 +38,7 @@ Route::prefix("admin")->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/delete-immobilier/{id}', [RealStateController::class, 'delete_immobilier'])->name('delete_immobilier');
 
     Route::get('/messages', [MessageController::class, 'messages_admin_page'])->name('messages_admin_page');
-    Route::post('/add_message', [MessageController::class, 'add_message'])->name('add_message');
+  
     Route::delete('/delete_msg/{id}', [MessageController::class, 'delete_msg'])->name('delete_msg');
 
 

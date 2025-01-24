@@ -54,7 +54,7 @@ class RealStateController extends ImageController
                 'wilayas.name as wilaya_name',
                 "dairas.name as daira_name"
             )
-            -> orderBy('real_states.id', 'desc')->take(6)->get();
+            -> orderBy('real_states.id', 'desc')-> where('is_actif'   , true ) ->get();
 
 
         //    $t =  RealState::inRandomOrder()->take(1)->get(); 
@@ -70,7 +70,21 @@ class RealStateController extends ImageController
     public function index_page()
     {
         $info_company = $this->get_info_company();
-        $ajout_recent = RealState::orderBy('id', 'desc')->take(6)->get();
+
+        $ajout_recent = RealState::join("real_state_types", "real_states.real_state_type_id",  '=', 'real_state_types.id')
+        ->join('wilayas', "wilayas.id", '=', "real_states.wilaya_id")
+        ->join('dairas', "real_states.daira_id", '=', "dairas.id")
+        ->select(
+            "real_states.*",
+            'real_state_types.*',
+            'real_state_types.id as test_id',
+            'real_states.id as rs_id',
+            'wilayas.name as wilaya_name',
+            "dairas.name as daira_name"
+        )
+            ->orderBy('real_states.id', 'desc')->where('is_actif', true)->take(6) ->get();
+
+  
         
         return view("welcome", compact('info_company' , "ajout_recent" ));
     }
@@ -212,7 +226,8 @@ class RealStateController extends ImageController
 
         $all_real_states = RealState::join("real_state_types", "real_state_types.id", "=", "real_states.real_state_type_id")
             ->select("real_states.*", "real_state_types.nom_type as nom_type")
-            -> orderBy('real_states.id', 'desc')->take(6)  
+            -> orderBy('real_states.id', 'desc')
+            // ->take(6)  
             // Facultatif : sélectionnez les colonnes nécessaires
             ->paginate(8);
 
@@ -278,6 +293,7 @@ class RealStateController extends ImageController
                 "description" => $request->description,
                 "statut" => $request->statut,
                 "num_prop" => $request->num_prop,
+                "is_actif" => $request->is_actif,
 
             ]);
 

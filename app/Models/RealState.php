@@ -25,6 +25,8 @@ class RealState extends Model
         "nb_pieces",
         "description",
         "num_prop",
+        "is_actif",
+        
 
     ];
 }

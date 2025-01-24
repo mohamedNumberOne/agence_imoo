@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->text("adresse");
             $table->text("description");
+            $table->boolean("is_actif")  -> default(true) ;
           
             $table->string("Superficie");
             $table->string("prix");

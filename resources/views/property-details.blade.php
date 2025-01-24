@@ -105,7 +105,8 @@
 
                         <h5 class="mb-2"> Description </h5>
                         <p>
-                            {{ $immo->description }}
+                            {!! nl2br(e($immo->description)) !!}
+                         
                         </p>
                     </div>
                     <hr>

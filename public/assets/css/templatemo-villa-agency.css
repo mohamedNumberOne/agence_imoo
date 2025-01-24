@@ -200,6 +200,10 @@ body {
 .section {
   margin-top: 30px;
 }
+.mt_5 {
+  margin-top: 70px !important;
+}
+
 
 .section-heading {
   margin-bottom: 30px;
@@ -514,7 +518,7 @@ ul.info li a {
 .header-area .main-nav .nav li {
   padding-left: 10px;
   padding-right: 10px;
-  /* height: 100px; */
+  height: auto; 
   line-height: 100px;
 }
 
@@ -832,14 +836,29 @@ Banner Style
 */
 
 .div_img {
-  height: 78vh;
-  background-attachment: fixed;
+  height: 350px;
+  background-attachment:   fixed;
   background-image: url('../images/agent_immobilier_1.jpeg');
   background-size: cover;
   width: 100%;
   background-position: center;
   position: relative;
 }
+.div_img h2 {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  padding: 10px 50px;
+  border-radius: 10px;
+}
+@media screen  and (max-width:700px) {
+  .div_img h2 {
+      top: 100px;
+      left: 40px; 
+      font-size: 18px ;
+    }
+} 
 
 .carousel-item p , .carousel-item h3 {
 color:white;
@@ -848,14 +867,6 @@ padding: 5px 10px;
 border-radius: 5px;
 }
 
-.div_img h2 {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  top: 100px;
-  left: 100px;
-  padding:  10px 50px ;
-  border-radius: 10px;
-}
 
 .main-banner .item {
   background-position: center center;

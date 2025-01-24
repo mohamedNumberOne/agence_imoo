@@ -3,8 +3,13 @@
 
 
 @section('content')
-{{-- style="height: 78vh;" --}}
-    <div id="carouselExampleCaptions" class="carousel slide"  >
+    @if (session()->has('msg'))
+        <div class="alert alert-success container text-center m-auto mb-5" role="alert">
+            {{ session('msg') }}
+        </div>
+    @endif
+
+    <div id="carouselExampleCaptions" class="carousel slide ">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                 aria-current="true" aria-label="Slide 1"></button>
@@ -14,25 +19,25 @@
                 aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active"  >
-                <img src="assets/images/banner-03.jpg" class="d-block w-100" alt="image">
+            <div class="carousel-item active">
+                <img src="{{ asset('assets/images/Sans-titre-2.png') }}" class="d-block w-100" alt="image">
                 <div class="carousel-caption d-none d-md-block">
                     <h3> Satisfaction </h3>
                     <p>La satisfaction de nos clients est garantie.</p>
                 </div>
             </div>
-            <div class="carousel-item" >
-                <img src="assets/images/AdobeStock_Responsable-de-la-transaction-immobiliere-scaled.png" class="d-block w-100" alt="image">
+            <div class="carousel-item">
+                <img src="{{ asset('assets/images/Sans-titre-3.png') }}" class="d-block w-100" alt="image">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>Confiance </h3>
                     <p>Faites-nous confiance pour vos projets immobiliers.</p>
                 </div>
             </div>
-            <div class="carousel-item"  >
-                <img src="assets/images/015263ld8f.png" class="d-block w-100" alt="image">
+            <div class="carousel-item">
+                <img src="{{ asset('assets/images/Sans-titre-1.png') }}" class="d-block w-100" alt="image">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>Rapidité </h3>
-                        <p>Un service rapide pour vos transactions immobilières.</p>
+                    <p>Un service rapide pour vos transactions immobilières.</p>
                 </div>
             </div>
         </div>
@@ -46,11 +51,96 @@
         </button>
     </div>
 
-    {{-- <div  class="div_img "  >
-    <h2 class="text-white" ><i class="fa-solid fa-key"></i>Découvrez les meilleures propriétés <br>Adaptées à vos besoins et envies<i class="fa-solid fa-key"></i></h2>
-</div> --}}
 
-    <div class="video section">
+
+    @if (count($ajout_recent) > 0)
+        <div class="properties section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 offset-lg-4">
+                        <div class="section-heading text-center">
+                            <h2> Biens récents </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    @foreach ($ajout_recent as $immo)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="item">
+
+                                <a href="{{ route('details_immo', $immo->rs_id) }}">
+                                    <div
+                                        style="height: 200px; width:  100% ; 
+                        background-image: url({{ asset($immo->photo_principale) }}) ; background-size : cover ; background-repeat : no-repeat ;background-position :center ;">
+                                    </div>
+                                </a>
+                                <span class="category"> {{ $immo->titre_bien }} </span>
+                                <h6> {{ $immo->prix }} </h6>
+                                <hr>
+                                <span class="category mb-4">
+                                    <i class="fa-solid fa-handshake"></i> {{ $immo->transaction }}
+                                </span>
+                                @switch($immo-> statut)
+                                    @case('disponible')
+                                        <span class="badge bg-success"> {{ $immo->statut }} </span>
+                                    @break
+
+                                    @case('réservé')
+                                        <span class="badge bg-primary"> {{ $immo->statut }} </span>
+                                    @break
+
+                                    @case('loué')
+                                        <span class="badge bg-danger"> {{ $immo->statut }} </span>
+                                    @break
+
+                                    @case('vendu')
+                                        <span class="badge bg-warning"> {{ $immo->statut }} </span>
+                                    @break
+                                @endswitch
+                                <h4>
+                                    <a href="{{ route('details_immo', $immo->rs_id) }}"> {{ $immo->wilaya_name }} |
+                                        {{ $immo->daira_name }},
+                                        {{ $immo->adresse }}
+                                    </a>
+                                </h4>
+                                <ul>
+
+                                    @if (!empty($immo->nb_pieces) && $immo->nb_pieces != null)
+                                        <li>Chambres: <span> {{ $immo->nb_pieces }} </span></li>
+                                    @endif
+
+                                    @if (!empty($immo->Superficie) && $immo->Superficie != null)
+                                        <li>Superficie: <span>{{ $immo->Superficie }} </span></li>
+                                    @endif
+
+                                    @if (!empty($immo->etage) && $immo->etage != null)
+                                        <li>étage: <span>{{ $immo->etage }}</span></li>
+                                    @endif
+
+                                </ul>
+                                <div class="main-button">
+                                    <a href="{{ route('details_immo', $immo->rs_id) }}">visiter</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+    <div class="div_img mt-5">
+        <h2 class="text-white"><i class="fa-solid fa-key"></i> Découvrez les meilleures propriétés Adaptées à vos besoins
+            et envies.</h2>
+    </div>
+
+
+
+    <div class="video section mt_5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 offset-lg-4">
@@ -75,6 +165,10 @@
             </div>
         </div>
     </div>
+
+
+
+
 
     <div class="fun-facts">
         <div class="container">
@@ -106,6 +200,7 @@
         </div>
     </div>
 
+
     <div class="section best-deal">
         <div class="container">
             <div class="row">
@@ -118,111 +213,39 @@
                 <div class="col-lg-12">
                     <div class="tabs-content">
                         <div class="row">
-                            <div class="nav-wrapper ">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="appartment-tab" data-bs-toggle="tab"
-                                            data-bs-target="#appartment" type="button" role="tab"
-                                            aria-controls="appartment" aria-selected="true">Appartment</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="villa-tab" data-bs-toggle="tab"
-                                            data-bs-target="#villa" type="button" role="tab" aria-controls="villa"
-                                            aria-selected="false">Villa
-                                            House</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab"
-                                            data-bs-target="#penthouse" type="button" role="tab"
-                                            aria-controls="penthouse" aria-selected="false">Penthouse</button>
-                                    </li>
-                                </ul>
-                            </div>
+
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="appartment" role="tabpanel"
                                     aria-labelledby="appartment-tab">
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="info-table">
-                                                <ul>
-                                                    <li>Total Flat Space <span>185 m2</span></li>
-                                                    <li>Floor number <span>26th</span></li>
-                                                    <li>Number of rooms <span>4</span></li>
-                                                    <li>Parking Available <span>Yes</span></li>
-                                                    <li>Payment Process <span>Bank</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
+
+                                        <div class="col-lg-7">
                                             <img src="{{ asset('assets/images/deal-01.jpg') }}" alt="">
                                         </div>
-                                        <div class="col-lg-3">
-                                            <h4>Extra Info About Property</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod
-                                                tempor pack incididunt ut labore et dolore magna aliqua quised ipsum
-                                                suspendisse.
-                                                <br><br>When you need free CSS templates, you can simply type TemplateMo
-                                                in any search engine website. In addition, you can type TemplateMo
-                                                Portfolio, TemplateMo One Page Layouts, etc.
+                                        <div class="col-lg-4">
+                                            <h3 class="mb-3">Votre partenaire immobilier partout en Algérie </h3>
+
+                                            <p>
+                                                Nous vous proposons une vaste sélection de biens immobiliers adaptés à tous
+                                                vos besoins, disponibles dans les 58 wilayas du territoire national.
+                                                <br>
+                                                Que
+                                                vous soyez à la recherche d'une maison, d'un appartement, ou d'un terrain,
+                                                nous mettons tout en œuvre pour vous offrir des solutions sur mesure. <br>
+
+                                                Notre priorité est de répondre à vos attentes en tenant compte de vos goûts
+                                                et de votre budget.
+                                                <br>
+                                                Avec notre expertise et notre engagement, nous vous
+                                                garantissons un service de qualité et une expérience d'achat ou de location
+                                                en toute sérénité.
                                             </p>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="villa" role="tabpanel" aria-labelledby="villa-tab">
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="info-table">
-                                                <ul>
-                                                    <li>Total Flat Space <span>250 m2</span></li>
-                                                    <li>Floor number <span>26th</span></li>
-                                                    <li>Number of rooms <span>5</span></li>
-                                                    <li>Parking Available <span>Yes</span></li>
-                                                    <li>Payment Process <span>Bank</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <img src="{{ asset('assets/images/deal-02.jpg') }}" alt="">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h4>Detail Info About Villa</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod
-                                                tempor pack incididunt ut labore et dolore magna aliqua quised ipsum
-                                                suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper
-                                                mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella
-                                                venmo after messenger poutine next level humblebrag swag franzen.</p>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="penthouse" role="tabpanel"
-                                    aria-labelledby="penthouse-tab">
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="info-table">
-                                                <ul>
-                                                    <li>Total Flat Space <span>320 m2</span></li>
-                                                    <li>Floor number <span>34th</span></li>
-                                                    <li>Number of rooms <span>6</span></li>
-                                                    <li>Parking Available <span>Yes</span></li>
-                                                    <li>Payment Process <span>Bank</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <img src="{{ asset('assets/images/deal-03.jpg') }}" alt="">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h4>Extra Info About Penthouse</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod
-                                                tempor pack incididunt ut labore et dolore magna aliqua quised ipsum
-                                                suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper
-                                                mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella
-                                                venmo after messenger poutine next level humblebrag swag franzen.</p>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -231,83 +254,6 @@
         </div>
     </div>
 
-    @if (count($ajout_recent) > 0)
-        <div class="properties section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 offset-lg-4">
-                        <div class="section-heading text-center">
-                            <h2> Biens récents </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    @foreach ($ajout_recent as $immo)
-                        <div class="col-lg-4 col-md-6">
-                            <div class="item">
-
-                                <a href="{{ route('details_immo', $immo->id) }}">
-                                    <div
-                                        style="height: 200px; width:  100% ; 
-                        background-image: url({{ asset($immo->photo_principale) }}) ; background-size : cover ; background-repeat : no-repeat ;background-position :center ;">
-                                    </div>
-                                </a>
-                                <span class="category"> {{ $immo->titre_bien }} </span>
-                                <h6> {{ $immo->prix }} </h6>
-                                <hr>
-                                @switch($immo-> statut)
-                                    @case('disponible')
-                                        <span class="badge bg-success"> {{ $immo->statut }} </span>
-                                    @break
-
-                                    @case('réservé')
-                                        <span class="badge bg-primary"> {{ $immo->statut }} </span>
-                                    @break
-
-                                    @case('loué')
-                                        <span class="badge bg-danger"> {{ $immo->statut }} </span>
-                                    @break
-
-                                    @case('vendu')
-                                        <span class="badge bg-warning"> {{ $immo->statut }} </span>
-                                    @break
-                                @endswitch
-                                <h4>
-                                    <a href="{{ route('details_immo', $immo->id) }}"> {{ $immo->wilaya_name }} |
-                                        {{ $immo->daira_name }},
-                                        {{ $immo->adresse }}
-                                    </a>
-                                </h4>
-                                <ul>
-
-                                    @if (!empty($immo->nb_pieces) && $immo->nb_pieces != null)
-                                        <li>Chambres: <span> {{ $immo->nb_pieces }} </span></li>
-                                    @endif
-
-                                    @if (!empty($immo->Superficie) && $immo->Superficie != null)
-                                        <li>Superficie: <span>{{ $immo->Superficie }} </span></li>
-                                    @endif
-
-                                    @if (!empty($immo->etage) && $immo->etage != null)
-                                        <li>étage: <span>{{ $immo->etage }}</span></li>
-                                    @endif
-
-                                </ul>
-                                <div class="main-button">
-                                    <a href="{{ route('details_immo', $immo->id) }}">visiter</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    @endforeach
-
-
-
-                </div>
-            </div>
-        </div>
-    @endif
 
 
     <div class="contact section">
