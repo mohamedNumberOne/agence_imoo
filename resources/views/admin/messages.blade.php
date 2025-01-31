@@ -49,13 +49,13 @@
 
                                                 <!-- Button trigger modal -->
                                                 <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal">
+                                                    data-bs-target="#exampleModal{{$msg->id}}">
                                                     <span class="badge bg-danger m-2"> <i class="fa-solid fa-trash"></i>
                                                     </span>
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                <div class="modal fade" id="exampleModal{{$msg->id}}" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
